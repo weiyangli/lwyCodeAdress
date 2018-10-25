@@ -66,12 +66,4 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.less</url-pattern>
   </servlet-mapping>
-<!--  <servlet>
-    <servlet-name>helloWord</servlet-name>
-    <servlet-class>ssm.handle.helloWord</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>helloWord</servlet-name>
-    <url-pattern>/helloWord</url-pattern>
-  </servlet-mapping>-->
 </web-app>
