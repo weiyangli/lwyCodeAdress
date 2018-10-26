@@ -3,5 +3,7 @@
 
 <!--namespace 非常重要：必须是 Mapper 类的全路径-->
 <mapper namespace="ssm.mapper.DemoMapper">
-
+    <select id="toHelloPage" resultType="Student">
+        SELECT id studentId, user_name userName, sex, age, nick_name nickName FROM student
+    </select>
 </mapper>

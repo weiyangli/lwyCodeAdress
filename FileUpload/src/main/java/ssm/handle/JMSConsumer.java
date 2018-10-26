@@ -45,7 +45,7 @@ public class JMSConsumer {
                 ObjectMessage textMessage =(ObjectMessage) messageConsumer.receive(36000000);
                 if (textMessage != null) {
                     Student student = (Student)textMessage.getObject();
-                    System.err.println("收到的消息:" + student.getStudentName());
+                    System.err.println("收到的消息:" + student.getNickName());
                 } else {
                     break;
                 }

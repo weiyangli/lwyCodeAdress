@@ -21,7 +21,6 @@ public class FileTest {
         String classpath = FileTest.class.getClassLoader().getResource("").getPath().replaceFirst("/", "").replaceAll("java/main/target/classes/", "");
         System.out.println("文件的磁盘路径为1："+classpath);
         File file = new File(classpath+"src/main/webapp/WEB-INF/static", "books");
-        System.out.println("文件的磁盘路径为3："+file.getPath());
     }
 
 }

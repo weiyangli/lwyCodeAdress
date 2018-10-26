@@ -79,7 +79,7 @@ public class JMSProducer {
             ActiveMQObjectMessage msg = (ActiveMQObjectMessage) session.createObjectMessage();
             msg.setObject((Serializable) student);
             // TextMessage message = session.createTextMessage("activemq 发送消息:" + Text);
-            System.err.println(student.getStudentName()+"发送消息:activemq 发送消息:" + i);
+            System.err.println(student.getNickName()+"发送消息:activemq 发送消息:" + i);
             //通过消息生产者发出消息
             messageProducer.send(msg);
         }
