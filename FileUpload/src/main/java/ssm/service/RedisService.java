@@ -1,6 +1,5 @@
 package ssm.service;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -19,14 +18,14 @@ public class RedisService {
     public School playJedis() {
         log.info("进入操作redis");
         School school = null;
-         String json = redisTemplate.opsForValue().get("mine_lwy");
-         try {
-             if (StringUtils.isNotBlank(json)) {
-                  school = JSONObject.parseObject(json,School.class);
-             }
-         }catch (Exception e) {
-             log.error("redis获取数据失败");
-         }
+        String json = redisTemplate.opsForValue().get("mine_lwy");
+        try {
+            if (StringUtils.isNotBlank(json)) {
+                school = JSONObject.parseObject(json, School.class);
+            }
+        } catch (Exception e) {
+            log.error("redis获取数据失败");
+        }
         return school;
     }
 }
