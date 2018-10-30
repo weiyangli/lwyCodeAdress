@@ -7,7 +7,7 @@
 		    http://www.springframework.org/schema/beans
 		    http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <elasticsearch:transport-client id="client" cluster-nodes="127.0.0.1:9300" cluster-name="ebag"/>
+    <elasticsearch:transport-client id="client" cluster-nodes="${clusterNodes}" cluster-name="${clusterName}"/>
 
     <bean name="elasticsearchTemplate" class="org.springframework.data.elasticsearch.core.ElasticsearchTemplate">
         <constructor-arg ref="client"/>
