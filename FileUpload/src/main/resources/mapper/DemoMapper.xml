@@ -6,4 +6,13 @@
     <select id="toHelloPage" resultType="Student">
         SELECT id studentId, user_name userName, sex, age, nick_name nickName FROM student
     </select>
+
+    <!-- 保存题目批改结果 -->
+    <insert id="toHelloPages">
+        INSERT INTO student (id, user_name, nick_name ,sex, age, create_time)
+        VALUES (#{studentId}, #{userName}, #{nickName}, #{sex}, #{age},now())
+
+        ON DUPLICATE KEY
+        UPDATE user_name = #{userName}, nick_name = #{nickName}, sex = #{sex}, age = #{age}
+    </insert>
 </mapper>

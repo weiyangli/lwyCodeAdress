@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.validation.constraints.NotBlank;
 import java.util.Arrays;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Getter
 @Setter
+@Document(indexName = "school", type = "school")
 @Accessors(chain = true)
 public class School {
     private Long id;      // 学校 ID

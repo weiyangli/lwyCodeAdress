@@ -76,7 +76,6 @@
         </property>
     </bean>
 
-
     <!-- 启用跨域请求 -->
     <mvc:cors>
         <mvc:mapping path="/**" allowed-methods="*"/>

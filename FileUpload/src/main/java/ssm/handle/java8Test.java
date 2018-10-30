@@ -15,5 +15,6 @@ public class java8Test {
         //求集合元素只和
         Integer result = stream.reduce(8, Integer::sum);
         System.out.println(result);
+
     }
 }

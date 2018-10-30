@@ -4,7 +4,12 @@ import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import ssm.bean.Student;
 
-import javax.jms.*;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
+import javax.jms.MessageConsumer;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
 
 public class JMSConsumer {
 
@@ -40,11 +45,11 @@ public class JMSConsumer {
             destination = session.createQueue("student");
             //创建消息的消费者
             messageConsumer = session.createConsumer(destination);
-            while(true){
+            while (true) {
                 //TextMessage textMessage = (TextMessage) messageConsumer.receive(100000);
-                ObjectMessage textMessage =(ObjectMessage) messageConsumer.receive(36000000);
+                ObjectMessage textMessage = (ObjectMessage) messageConsumer.receive(36000000);
                 if (textMessage != null) {
-                    Student student = (Student)textMessage.getObject();
+                    Student student = (Student) textMessage.getObject();
                     System.err.println("收到的消息:" + student.getNickName());
                 } else {
                     break;

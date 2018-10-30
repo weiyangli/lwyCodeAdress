@@ -16,8 +16,22 @@ public class DemoService {
     @Autowired
     private RedisService redisService;
 
+    @Autowired
+    private EsService esService;
+
+    @Autowired
+    private IdWorker idWorker;
+
     public List<Student> toHelloPage() {
         School school = redisService.playJedis();
+        esService.esAddData(school,school.getId());
         return  demoMapper.toHelloPage();
+    }
+
+    public void toHelloPages(Student student) {
+        if(student.getStudentId() == 0) {
+            student.setStudentId(idWorker.nextId());
+        }
+        demoMapper.toHelloPages();
     }
 }

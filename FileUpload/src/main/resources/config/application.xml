@@ -13,6 +13,7 @@
     <!-- ssm.Service, Dao, Config, Redis, elasticsearch 等公用的、与 Servlet 无关的对象在此生成 -->
     <import resource="classpath:config/mybatis.xml"/>
     <import resource="classpath:config/redis.xml"/>
+    <import resource="classpath:config/elasticSearch.xml"/>
 
     <!-- ssm.Service 应该是 Servlet 无关的，Controller 是 Servlet 相关的 -->
     <context:component-scan base-package="ssm.service"/>
