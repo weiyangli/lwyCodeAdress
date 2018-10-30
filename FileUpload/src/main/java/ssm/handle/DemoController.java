@@ -25,8 +25,12 @@ public class DemoController {
     @ResponseBody
     public String toHelloPage(@PathVariable long Id) {
         logger.info("待操作数据Id为"+Id);
-        System.out.println(Id);
         List<Student> students =  demoService.toHelloPage();
+        // 抽奖
+        students.forEach(student -> {
+            PaChong paChong = new PaChong(student.getNickName());
+            new Thread(paChong).start();
+        });
         return JSON.toJSONString(students);
     }
 

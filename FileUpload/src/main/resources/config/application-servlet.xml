@@ -80,10 +80,6 @@
     <mvc:cors>
         <mvc:mapping path="/**" allowed-methods="*"/>
     </mvc:cors>
-    <!-- 静态资源的访问，如 js, css, jpg, png -->
-    <!-- 如 HTML 里访问 /static/js/jquery.js, 则实际访问的是 /WEB-INF/static/js/jquery.js -->
-<!--    <mvc:resources mapping="/page/js/**"      location="/webpage/page/js/"      cache-period="${cachePeriod}"/>
-    <mvc:resources mapping="/page/css/**"     location="/webpage/page/css/"     cache-period="${cachePeriod}"/>
-    <mvc:resources mapping="/page/html/**"    location="/webpage/page/html/"    cache-period="${cachePeriod}"/>
-    <mvc:resources mapping="/page/img/**"     location="/webpage/page/img/"     cache-period="${cachePeriod}"/>-->
+
+    <!-- velocity -->
 </beans>
