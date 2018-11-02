@@ -1,6 +1,7 @@
 package ssm.handle;
 
 import com.alibaba.fastjson.JSON;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import ssm.bean.Student;
 import ssm.service.DemoService;
 
 import javax.validation.Valid;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -40,6 +42,15 @@ public class DemoController {
         logger.info("待操作数据Id为"+student.getAge());
         demoService.toHelloPages(student);
         return student.getUserName();
+    }
+
+    @RequestMapping(value = Urls.HERO_LOL_JSON,method = RequestMethod.GET)
+    @ResponseBody
+    public String saveHero() throws Exception{
+        File file = new File("C:\\Users\\47477\\Desktop\\lwyCodeAdress\\FileUpload\\src\\main\\resources\\json\\hero.json");
+        String bookJson = FileUtils.readFileToString(file, "UTF-8");
+        demoService.saveHero(bookJson);
+        return "成功!";
     }
     // 电子书包转换服务
     /*

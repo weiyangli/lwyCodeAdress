@@ -3,6 +3,13 @@ package ssm.util;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebRequest;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -28,6 +35,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -262,26 +271,27 @@ public final class Utils {
     }
 
     /**
-    * 获取题干中除去标签和空格超链接以外的内容
-    * */
-     public static String getTextFromHtml(String html) {
-         if (StringUtils.isBlank(html)) {
-             return null;
-         }
-         Document doc = Jsoup.parse(html);
-         Elements elements = doc.select("a");
-         for (Element element : elements) {
-             element.remove();
-         }
-         html = doc.body().text();
-         return html;
+     * 获取题干中除去标签和空格超链接以外的内容
+     */
+    public static String getTextFromHtml(String html) {
+        if (StringUtils.isBlank(html)) {
+            return null;
+        }
+        Document doc = Jsoup.parse(html);
+        Elements elements = doc.select("a");
+        for (Element element : elements) {
+            element.remove();
+        }
+        html = doc.body().text();
+        return html;
     }
-   /**
-    * 解析学生回复json对象
-    **/
-   public static void  analysisReply (String content) {
-       JSONObject jsonObject =  JSON.parseObject(content);
-   }
+
+    /**
+     * 解析学生回复json对象
+     **/
+    public static void analysisReply(String content) {
+        JSONObject jsonObject = JSON.parseObject(content);
+    }
 
     /**
      * 如果 id 不为 null 且大于 0 则是有效的 ID (数据库里的 ID 都是从 1 开始)
@@ -306,10 +316,10 @@ public final class Utils {
 
     /**
      * 获取图片的大小
-     *
+     * <p>
      * This solution is very quick as only image size is read from the file and not the whole image.
      * From: https://stackoverflow.com/questions/672916/how-to-get-image-height-and-width-using-java
-     *
+     * <p>
      * Blows ImageIO.read() completely out of the water, both in terms of CPU time and memory usage.
      *
      * @param path 图片文件的路径
@@ -325,7 +335,7 @@ public final class Utils {
 
             try (ImageInputStream stream = new FileImageInputStream(new File(path))) {
                 reader.setInput(stream);
-                int width  = reader.getWidth(reader.getMinIndex());
+                int width = reader.getWidth(reader.getMinIndex());
                 int height = reader.getHeight(reader.getMinIndex());
                 result = new Dimension(width, height);
             } catch (IOException e) {
@@ -353,15 +363,15 @@ public final class Utils {
     /**
      * 把 List<T> 根据 key 进行分组为 Map<K, List<T>>，key 为类 T 的方法引用返回的值，例如用户名，ID 等。
      * 使用案例，把 users 根据用户名和 ID 进行分组，相同用户名的用户作为 map 的 value (List<User>)，并且限制每个 list 大小为 2:
-     *     List<User> users = new LinkedList<>();
-     *     Map<String, List<User>> usersMap1 = groupAndLimitMapListValueSize(users, 2, User::getUsername);
-     *     Map<Long,   List<User>> usersMap2 = groupAndLimitMapListValueSize(users, 2, User::getId);
+     * List<User> users = new LinkedList<>();
+     * Map<String, List<User>> usersMap1 = groupAndLimitMapListValueSize(users, 2, User::getUsername);
+     * Map<Long,   List<User>> usersMap2 = groupAndLimitMapListValueSize(users, 2, User::getId);
      *
-     * @param list 要进行分组的 list
-     * @param size 每组元素的个数
+     * @param list       要进行分组的 list
+     * @param size       每组元素的个数
      * @param classifier 分组的 key 的方法引用
-     * @param <K> map 的 key 的类型
-     * @param <T> map 的 value 的类型
+     * @param <K>        map 的 key 的类型
+     * @param <T>        map 的 value 的类型
      * @return 返回分组后的 map
      */
     public static <K, T> Map<K, List<T>> groupAndLimitMapListValueSize(List<T> list, int size, Function<? super T, ? extends K> classifier) {
@@ -391,5 +401,116 @@ public final class Utils {
         System.out.println(isPasswordValidByBCrypt("password", "{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG"));
     }
 
+    /*
+     * 获取js渲染过后的html页面
+     * */
+/*    public static String getAjaxPage(String url) throws Exception{
+        WebClient webClient = new WebClient(BrowserVersion.FIREFOX_3_6);
+        webClient.setJavaScriptEnabled(true);
+        webClient.setCssEnabled(false);
+        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
+        webClient.setTimeout(Integer.MAX_VALUE);
+        webClient.setThrowExceptionOnScriptError(false);
+        HtmlPage rootPage = webClient.getPage(url);
+        Thread.sleep(5000);
+        return rootPage.asXml();
+    }*/
+    public static Document getDocument(String url) throws IOException, InterruptedException {
+        WebClient wc = new WebClient(BrowserVersion.CHROME);
+        //是否使用不安全的SSL
+        wc.getOptions().setUseInsecureSSL(true);
+        //启用JS解释器，默认为true
+        wc.getOptions().setJavaScriptEnabled(true);
+        //禁用CSS
+        wc.getOptions().setCssEnabled(false);
+        //js运行错误时，是否抛出异常
+        wc.getOptions().setThrowExceptionOnScriptError(false);
+        //状态码错误时，是否抛出异常
+        wc.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        //是否允许使用ActiveX
+        wc.getOptions().setActiveXNative(false);
+        //等待js时间
+        wc.waitForBackgroundJavaScript(600 * 1000);
+        //设置Ajax异步处理控制器即启用Ajax支持
+        wc.setAjaxController(new NicelyResynchronizingAjaxController());
+        //设置超时时间
+        wc.getOptions().setTimeout(1000000);
+        //不跟踪抓取
+        wc.getOptions().setDoNotTrackEnabled(false);
+        WebRequest request = new WebRequest(new URL(url));
+        request.setAdditionalHeader("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:62.0) Gecko/20100101 Firefox/62.0");
+        request.setAdditionalHeader("Cookie", "PLAY_LANG=cn; _plh=b9289d0a863a8fc9c79fb938f15372f7731d13fb; PLATFORM_SESSION=39034d07000717c664134556ad39869771aabc04-_ldi=520275&_lsh=8cf91cdbcbbb255adff5cba6061f561b642f5157&csrfToken=209f20c8473bc0518413c226f898ff79cd69c3ff-1539926671235-b853a6a63c77dd8fcc364a58&_lpt=%2Fcn%2Fvehicle_sales%2Fsearch&_lsi=1646321; _ga=GA1.2.2146952143.1539926675; _gid=GA1.2.1032787565.1539926675; _plh_notime=8cf91cdbcbbb255adff5cba6061f561b642f5157");
+        try {
+            //模拟浏览器打开一个目标网址
+            HtmlPage htmlPage = wc.getPage(request);
+            //为了获取js执行的数据 线程开始沉睡等待
+            Thread.sleep(1000);//这个线程的等待 因为js加载需要时间的
+            //以xml形式获取响应文本
+            String xml = htmlPage.asXml();
+            //并转为Document对象return
+            return Jsoup.parse(xml);
+            //System.out.println(xml.contains("结果.xls"));//false
+        } catch (FailingHttpStatusCodeException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /*
+     * Unicode转中文
+     * */
+    public static String toUnicode(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); ++i) {
+            if (s.charAt(i) <= 256) {
+                sb.append("\\u00");
+            } else {
+                sb.append("\\u");
+            }
+            sb.append(Integer.toHexString(s.charAt(i)));
+        }
+        return sb.toString();
+    }
+
+    public static String unicodeToCn(String unicode) {
+        /** 以 \ u 分割，因为java注释也能识别unicode，因此中间加了一个空格*/
+        String[] strs = unicode.split("\\\\u");
+        String returnStr = "";
+        // 由于unicode字符串以 \ u 开头，因此分割出的第一个字符是""。
+        for (int i = 1; i < strs.length; i++) {
+            returnStr += (char) Integer.valueOf(strs[i], 16).intValue();
+        }
+        return returnStr;
+    }
+
+    /*
+     * 读取json文件
+     * */
+    public static void dealJsonFile(String url) throws Exception {
+        File file = new File("C:\\Users\\47477\\Desktop\\lwyCodeAdress\\FileUpload\\src\\main\\resources\\json\\hero.json");
+        String bookJson = FileUtils.readFileToString(file, "UTF-8");
+    }
+
+    /**
+     * @param url
+     * @param dir
+     * @param fileName
+     */
+    public static void downloadHttpUrl(String url, String dir, String fileName) {
+        try {
+            URL httpUrl = new URL(url);
+            File dirFile = new File(dir);
+            if (!dirFile.exists()) {
+                dirFile.mkdirs();
+            }
+            FileUtils.copyURLToFile(httpUrl, new File(dir + fileName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 

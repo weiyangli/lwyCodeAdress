@@ -15,4 +15,13 @@
         ON DUPLICATE KEY
         UPDATE user_name = #{userName}, nick_name = #{nickName}, sex = #{sex}, age = #{age}
     </insert>
+
+    <!-- 保存英雄 -->
+    <insert id="insertZero">
+        INSERT INTO hero (id, english_name, china_name ,hero_title, tags, image)
+        VALUES (#{key}, #{id}, #{name}, #{title}, #{tags},#{image})
+
+        ON DUPLICATE KEY
+        UPDATE english_name = #{id}, china_name = #{name}, hero_title = #{title}, tags = #{tags}, image = #{image}
+    </insert>
 </mapper>
