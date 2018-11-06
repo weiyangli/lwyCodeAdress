@@ -34,7 +34,7 @@ public class DemoController {
      */
     @RequestMapping(value = Urls.PAGE_DEMO_REST, method = RequestMethod.GET)
     @ResponseBody
-    public String toHelloPage(@PathVariable long Id) {
+    public List<Zero> toHelloPage(@PathVariable(required = false) long Id) {
         logger.info("待操作数据Id为" + Id);
         List<Student> students = demoService.toHelloPage();
         List<Zero> zeros = demoService.findZero();
@@ -44,7 +44,7 @@ public class DemoController {
             PrizesThread prizesThread = new PrizesThread(paChong);
             new Thread(prizesThread).start();
         });
-        return JSON.toJSONString(students);
+        return zeros;
     }
 
     /**

@@ -41,6 +41,10 @@ public class DemoService {
         demoMapper.toHelloPages();
     }
 
+    /**
+     *
+     * @param bookJson
+     */
     public void saveHero(String bookJson){
         // 将json 串转对象
         Hero hero = JSONObject.parseObject(bookJson, Hero.class);
