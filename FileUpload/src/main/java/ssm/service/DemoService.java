@@ -73,4 +73,8 @@ public class DemoService {
             });
         }
     }
+
+    public List<Zero> findZero() {
+        return demoMapper.findZero();
+    }
 }

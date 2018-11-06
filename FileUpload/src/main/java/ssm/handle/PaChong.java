@@ -7,6 +7,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+/*
+* 谈谈我对多线程的想法:
+* 实现多线程两种方式 继承 thread 或者实现 runabled 类  重写 run 方法
+* 多线程 = 一个接口同一时间被多次请求。这总情况会产生多个线程，如果多个线程之间执行的代码
+* 使用的属性不存在互相影响情况，像单例模式一样一个值如果被线程反复使用，可能会使值发生变化，这个时候
+* 会出现当前线程影响属性值，但是下一个线程拿到的值还是没有影响之前的值，这样计算下去业务肯定会有问题的，后面来的进程使用的
+* 值，其实已经被使用过。这种情况使用线程同步来控制。即将影响该值的代码写在 synchronized 关键字中 可以用 sleep 来阻塞线程，
+* 使其他线程稍作等待，sleep 时间过后线程再来争抢当前属性使用。还可以使用 wait 更加灵活等到对应的 notify 方法时释放对象锁。
+* */
 @Getter
 @Setter
 public class PaChong implements Runnable{
@@ -30,12 +39,10 @@ public class PaChong implements Runnable{
         // 点击按钮随机转动获取对应奖品
         PaChong paChong = new PaChong("张三");
         new Thread(paChong).start();
-        PaChong paChong2 = new PaChong("李四");
+        PaChong paChong2 = new PaChong("历史");
         new Thread(paChong2).start();
         PaChong paChong3 = new PaChong("王二");
         new Thread(paChong3).start();
-        PaChong paChong4 = new PaChong("码子");
-        new Thread(paChong4).start();
     }
     // 随机获取对应的礼品
     public void random () {
@@ -44,6 +51,7 @@ public class PaChong implements Runnable{
             Random r = new Random();
             int num = r.nextInt(10000) % (10000) + 1;
             System.out.println(name+"朋友抽到的号码是"+num);
+            // 创建奖品池
             Map<Integer,String> prizesMap = getPrizes();
             // 奖品池分为
             String prize = prizesMap.get(num);
@@ -58,13 +66,8 @@ public class PaChong implements Runnable{
             } else {
                 System.out.println("恭喜"+name+"朋友获得了"+prize);
             }
-        }
-    }
-
-    @Override
-    public void run(){
-        System.out.println(name+"经来咯");
-        random();
+            System.out.println("-------------------------------------------->>");
+       }
     }
 
     @Getter
@@ -84,12 +87,12 @@ public class PaChong implements Runnable{
     public Map<Integer,String> getPrizes() {
         Map<Integer,Prize> prizesMap = new HashMap<>();
         prizesMap.put(1,new Prize("Iphone X 64G",0.5));
-        prizesMap.put(2,new Prize("pad mini",2.0));
-        prizesMap.put(3,new Prize("Aj 南海岸",3.0));
-        prizesMap.put(4,new Prize("Aj6 手稿",3.0));
-        prizesMap.put(5,new Prize("Aj1 黑脚趾",1.5));
-        prizesMap.put(6,new Prize("小米耳机",20.0));
-        prizesMap.put(7,new Prize("谢谢参与",70.0));
+        prizesMap.put(2,new Prize("pad mini",0.5));
+        prizesMap.put(3,new Prize("Aj 南海岸",2.0));
+        prizesMap.put(4,new Prize("Aj6 手稿",1.0));
+        prizesMap.put(5,new Prize("Aj1 黑脚趾",1.0));
+        prizesMap.put(6,new Prize("小米耳机",5.0));
+        prizesMap.put(7,new Prize("谢谢参与",90.0));
         // 按照中奖概率创建一万个奖品
         Map<Integer,String> prizes = new HashMap<>();
         Set<Integer> keys = prizesMap.keySet();
@@ -105,5 +108,10 @@ public class PaChong implements Runnable{
             num = cs;
         }
         return prizes;
+    }
+    @Override
+    public void run() {
+        System.out.println("fdsagasd");
+        random();
     }
 }

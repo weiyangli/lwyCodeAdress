@@ -1,0 +1,1 @@
+[2018-09-05T16:33:25,763][WARN ][o.e.d.r.RestController   ] Content type detection for rest requests is deprecated. Specify the content type using the [Content-Type] header.

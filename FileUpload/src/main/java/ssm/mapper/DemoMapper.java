@@ -11,4 +11,6 @@ public interface DemoMapper {
     void toHelloPages();
 
     void insertZero(Zero zero);
+
+    List<Zero> findZero();
 }

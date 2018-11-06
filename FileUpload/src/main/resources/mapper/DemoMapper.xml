@@ -24,4 +24,9 @@
         ON DUPLICATE KEY
         UPDATE english_name = #{id}, china_name = #{name}, hero_title = #{title}, tags = #{tags}, image = #{image}
     </insert>
+
+    <!-- 查询英雄 -->
+    <select id="findZero"  resultType="Zero">
+        SELECT id, english_name `key`, china_name name, hero_title title, tags, image FROM hero
+    </select>
 </mapper>

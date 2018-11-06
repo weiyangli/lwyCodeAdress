@@ -1,0 +1,355 @@
+[2018-09-05T14:30:22,095][INFO ][o.e.n.Node               ] [node-1] initializing ...
+[2018-09-05T14:30:22,265][INFO ][o.e.e.NodeEnvironment    ] [node-1] using [1] data paths, mounts [[(F:)]], net usable_space [53.3gb], net total_space [121.7gb], spins? [unknown], types [NTFS]
+[2018-09-05T14:30:22,266][INFO ][o.e.e.NodeEnvironment    ] [node-1] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-09-05T14:30:22,272][INFO ][o.e.n.Node               ] [node-1] node name [node-1], node ID [dEsD1YS3TMe59S5dW417NQ]
+[2018-09-05T14:30:22,272][INFO ][o.e.n.Node               ] [node-1] version[5.5.1], pid[6128], build[19c13d0/2017-07-18T20:44:24.823Z], OS[Windows 7/6.1/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_45/25.45-b02]
+[2018-09-05T14:30:22,272][INFO ][o.e.n.Node               ] [node-1] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=F:\software\elasticsearch-5.5.1\elasticsearch-5.5.1]
+[2018-09-05T14:30:23,370][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [aggs-matrix-stats]
+[2018-09-05T14:30:23,370][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-common]
+[2018-09-05T14:30:23,370][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-expression]
+[2018-09-05T14:30:23,370][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-groovy]
+[2018-09-05T14:30:23,371][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-mustache]
+[2018-09-05T14:30:23,371][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-painless]
+[2018-09-05T14:30:23,371][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [parent-join]
+[2018-09-05T14:30:23,371][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [percolator]
+[2018-09-05T14:30:23,371][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [reindex]
+[2018-09-05T14:30:23,372][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty3]
+[2018-09-05T14:30:23,372][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty4]
+[2018-09-05T14:30:23,372][INFO ][o.e.p.PluginsService     ] [node-1] no plugins loaded
+[2018-09-05T14:30:25,590][INFO ][o.e.d.DiscoveryModule    ] [node-1] using discovery type [zen]
+[2018-09-05T14:30:26,073][INFO ][o.e.n.Node               ] [node-1] initialized
+[2018-09-05T14:30:26,073][INFO ][o.e.n.Node               ] [node-1] starting ...
+[2018-09-05T14:30:26,434][INFO ][o.e.t.TransportService   ] [node-1] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}
+[2018-09-05T14:30:29,490][INFO ][o.e.c.s.ClusterService   ] [node-1] new_master {node-1}{dEsD1YS3TMe59S5dW417NQ}{corrAQDHQKSADVMY0NjWpA}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-09-05T14:30:29,527][INFO ][o.e.g.GatewayService     ] [node-1] recovered [0] indices into cluster_state
+[2018-09-05T14:30:29,528][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-1] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}
+[2018-09-05T14:30:29,529][INFO ][o.e.n.Node               ] [node-1] started
+[2018-09-05T14:32:05,890][INFO ][o.e.n.Node               ] [node-1] stopping ...
+[2018-09-05T14:32:05,933][INFO ][o.e.n.Node               ] [node-1] stopped
+[2018-09-05T14:32:05,933][INFO ][o.e.n.Node               ] [node-1] closing ...
+[2018-09-05T14:32:05,941][INFO ][o.e.n.Node               ] [node-1] closed
+[2018-09-05T14:32:19,150][ERROR][o.e.b.Bootstrap          ] Exception
+java.lang.IllegalArgumentException: plugin [analysis-ik] is incompatible with version [5.5.1]; was designed for version [5.1.1]
+	at org.elasticsearch.plugins.PluginInfo.readFromProperties(PluginInfo.java:146) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Spawner.spawnNativePluginControllers(Spawner.java:76) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:167) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:351) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:123) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:114) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:67) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:122) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.Command.main(Command.java:88) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:91) [elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:84) [elasticsearch-5.5.1.jar:5.5.1]
+[2018-09-05T14:32:19,157][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler] [node-1] uncaught exception in thread [main]
+org.elasticsearch.bootstrap.StartupException: java.lang.IllegalArgumentException: plugin [analysis-ik] is incompatible with version [5.5.1]; was designed for version [5.1.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:127) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:114) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:67) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:122) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.cli.Command.main(Command.java:88) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:91) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:84) ~[elasticsearch-5.5.1.jar:5.5.1]
+Caused by: java.lang.IllegalArgumentException: plugin [analysis-ik] is incompatible with version [5.5.1]; was designed for version [5.1.1]
+	at org.elasticsearch.plugins.PluginInfo.readFromProperties(PluginInfo.java:146) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Spawner.spawnNativePluginControllers(Spawner.java:76) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:167) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:351) ~[elasticsearch-5.5.1.jar:5.5.1]
+	at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:123) ~[elasticsearch-5.5.1.jar:5.5.1]
+	... 6 more
+[2018-09-05T14:36:03,141][INFO ][o.e.n.Node               ] [node-1] initializing ...
+[2018-09-05T14:36:03,228][INFO ][o.e.e.NodeEnvironment    ] [node-1] using [1] data paths, mounts [[(F:)]], net usable_space [53.3gb], net total_space [121.7gb], spins? [unknown], types [NTFS]
+[2018-09-05T14:36:03,228][INFO ][o.e.e.NodeEnvironment    ] [node-1] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-09-05T14:36:03,235][INFO ][o.e.n.Node               ] [node-1] node name [node-1], node ID [dEsD1YS3TMe59S5dW417NQ]
+[2018-09-05T14:36:03,236][INFO ][o.e.n.Node               ] [node-1] version[5.5.1], pid[13316], build[19c13d0/2017-07-18T20:44:24.823Z], OS[Windows 7/6.1/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_45/25.45-b02]
+[2018-09-05T14:36:03,236][INFO ][o.e.n.Node               ] [node-1] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=F:\software\elasticsearch-5.5.1\elasticsearch-5.5.1]
+[2018-09-05T14:36:04,365][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [aggs-matrix-stats]
+[2018-09-05T14:36:04,365][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-common]
+[2018-09-05T14:36:04,365][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-expression]
+[2018-09-05T14:36:04,365][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-groovy]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-mustache]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-painless]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [parent-join]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [percolator]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [reindex]
+[2018-09-05T14:36:04,366][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty3]
+[2018-09-05T14:36:04,367][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty4]
+[2018-09-05T14:36:04,367][INFO ][o.e.p.PluginsService     ] [node-1] loaded plugin [analysis-ik]
+[2018-09-05T14:36:06,440][INFO ][o.e.d.DiscoveryModule    ] [node-1] using discovery type [zen]
+[2018-09-05T14:36:06,945][INFO ][o.e.n.Node               ] [node-1] initialized
+[2018-09-05T14:36:06,946][INFO ][o.e.n.Node               ] [node-1] starting ...
+[2018-09-05T14:36:07,240][INFO ][o.e.t.TransportService   ] [node-1] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}
+[2018-09-05T14:36:10,290][INFO ][o.e.c.s.ClusterService   ] [node-1] new_master {node-1}{dEsD1YS3TMe59S5dW417NQ}{BYJ5PTyzR2674vcaCQ4G3Q}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-09-05T14:36:10,362][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-1] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}
+[2018-09-05T14:36:10,363][INFO ][o.e.n.Node               ] [node-1] started
+[2018-09-05T14:36:10,370][INFO ][o.e.g.GatewayService     ] [node-1] recovered [0] indices into cluster_state
+[2018-09-05T14:39:08,001][INFO ][o.w.a.d.Monitor          ] try load config from F:\software\elasticsearch-5.5.1\elasticsearch-5.5.1\config\analysis-ik\IKAnalyzer.cfg.xml
+[2018-09-05T14:39:08,234][INFO ][o.e.c.m.MetaDataCreateIndexService] [node-1] [question] creating index, cause [auto(bulk api)], templates [], shards [5]/[1], mappings []
+[2018-09-05T14:39:08,602][INFO ][o.e.c.m.MetaDataMappingService] [node-1] [question/ilgaxSqHRU-25XrVA0Yk0A] create_mapping [question]
+[2018-09-05T16:33:25,788][INFO ][o.e.c.m.MetaDataCreateIndexService] [node-1] [music] creating index, cause [auto(bulk api)], templates [], shards [5]/[1], mappings []
+[2018-09-05T16:33:26,074][INFO ][o.e.c.m.MetaDataMappingService] [node-1] [music/-rzBBQliTzWyug6rF5LDpQ] create_mapping [songs]
+[2018-09-05T16:35:16,595][INFO ][o.e.n.Node               ] [node-1] stopping ...
+[2018-09-05T16:35:16,679][INFO ][o.e.n.Node               ] [node-1] stopped
+[2018-09-05T16:35:16,679][INFO ][o.e.n.Node               ] [node-1] closing ...
+[2018-09-05T16:35:16,702][INFO ][o.e.n.Node               ] [node-1] closed
+[2018-09-05T16:35:24,879][INFO ][o.e.n.Node               ] [node-1] initializing ...
+[2018-09-05T16:35:25,129][INFO ][o.e.e.NodeEnvironment    ] [node-1] using [1] data paths, mounts [[(F:)]], net usable_space [53.1gb], net total_space [121.7gb], spins? [unknown], types [NTFS]
+[2018-09-05T16:35:25,130][INFO ][o.e.e.NodeEnvironment    ] [node-1] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-09-05T16:35:25,381][INFO ][o.e.n.Node               ] [node-1] node name [node-1], node ID [dEsD1YS3TMe59S5dW417NQ]
+[2018-09-05T16:35:25,382][INFO ][o.e.n.Node               ] [node-1] version[5.5.1], pid[15324], build[19c13d0/2017-07-18T20:44:24.823Z], OS[Windows 7/6.1/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_45/25.45-b02]
+[2018-09-05T16:35:25,382][INFO ][o.e.n.Node               ] [node-1] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=F:\software\elasticsearch-5.5.1\elasticsearch-5.5.1]
+[2018-09-05T16:35:26,887][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [aggs-matrix-stats]
+[2018-09-05T16:35:26,887][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-common]
+[2018-09-05T16:35:26,887][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-expression]
+[2018-09-05T16:35:26,887][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-groovy]
+[2018-09-05T16:35:26,888][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-mustache]
+[2018-09-05T16:35:26,888][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-painless]
+[2018-09-05T16:35:26,888][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [parent-join]
+[2018-09-05T16:35:26,888][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [percolator]
+[2018-09-05T16:35:26,889][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [reindex]
+[2018-09-05T16:35:26,889][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty3]
+[2018-09-05T16:35:26,889][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty4]
+[2018-09-05T16:35:26,891][INFO ][o.e.p.PluginsService     ] [node-1] loaded plugin [analysis-ik]
+[2018-09-05T16:35:30,990][INFO ][o.e.d.DiscoveryModule    ] [node-1] using discovery type [zen]
+[2018-09-05T16:35:31,912][INFO ][o.e.n.Node               ] [node-1] initialized
+[2018-09-05T16:35:31,912][INFO ][o.e.n.Node               ] [node-1] starting ...
+[2018-09-05T16:35:32,486][INFO ][o.e.t.TransportService   ] [node-1] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}
+[2018-09-05T16:35:35,618][INFO ][o.e.c.s.ClusterService   ] [node-1] new_master {node-1}{dEsD1YS3TMe59S5dW417NQ}{ePSwjyuySnK85EanjuTvnQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-09-05T16:35:35,672][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-1] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}
+[2018-09-05T16:35:35,673][INFO ][o.e.n.Node               ] [node-1] started
+[2018-09-05T16:35:35,740][INFO ][o.w.a.d.Monitor          ] try load config from F:\software\elasticsearch-5.5.1\elasticsearch-5.5.1\config\analysis-ik\IKAnalyzer.cfg.xml
+[2018-09-05T16:35:36,263][INFO ][o.e.g.GatewayService     ] [node-1] recovered [2] indices into cluster_state
+[2018-09-05T16:35:36,810][INFO ][o.e.c.r.a.AllocationService] [node-1] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[music][4], [question][3], [question][1], [question][4]] ...]).
+[2018-09-05T16:42:25,468][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x17ee782f, L:/127.0.0.1:9300 - R:/127.0.0.1:50391]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,470][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x8b3b46b8, L:/127.0.0.1:9300 - R:/127.0.0.1:50397]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,470][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x8345c94c, L:/127.0.0.1:9300 - R:/127.0.0.1:50400]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,468][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x909ef340, L:/127.0.0.1:9300 - R:/127.0.0.1:50398]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,469][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x1ecc42da, L:/127.0.0.1:9300 - R:/127.0.0.1:50396]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,468][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x00db948b, L:/127.0.0.1:9300 - R:/127.0.0.1:50394]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,468][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x3c2b2251, L:/127.0.0.1:9300 - R:/127.0.0.1:50393]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:26,289][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0xdb13e551, L:/127.0.0.1:9300 - R:/127.0.0.1:50402]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:25,468][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0xe58d8e4a, L:/127.0.0.1:9300 - R:/127.0.0.1:50395]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:26,253][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0xa3b93fb4, L:/127.0.0.1:9300 - R:/127.0.0.1:50390]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:26,239][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x65b4f45c, L:/127.0.0.1:9300 - R:/127.0.0.1:50392]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:26,237][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0x06daef60, L:/127.0.0.1:9300 - R:/127.0.0.1:50399]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:42:26,313][WARN ][o.e.t.n.Netty4Transport  ] [node-1] exception caught on transport layer [[id: 0xf4619e78, L:/127.0.0.1:9300 - R:/127.0.0.1:50401]], closing connection
+java.io.IOException: 远程主机强迫关闭了一个现有的连接。
+	at sun.nio.ch.SocketDispatcher.read0(Native Method) ~[?:?]
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:43) ~[?:?]
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223) ~[?:?]
+	at sun.nio.ch.IOUtil.read(IOUtil.java:197) ~[?:?]
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380) ~[?:?]
+	at io.netty.buffer.PooledHeapByteBuf.setBytes(PooledHeapByteBuf.java:261) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:1100) ~[netty-buffer-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:372) ~[netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:123) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:644) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysPlain(NioEventLoop.java:544) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:498) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:458) [netty-transport-4.1.11.Final.jar:4.1.11.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$5.run(SingleThreadEventExecutor.java:858) [netty-common-4.1.11.Final.jar:4.1.11.Final]
+	at java.lang.Thread.run(Thread.java:745) [?:1.8.0_45]
+[2018-09-05T16:43:47,834][INFO ][o.e.c.m.MetaDataDeleteIndexService] [node-1] [question/ilgaxSqHRU-25XrVA0Yk0A] deleting index
+[2018-09-05T16:43:48,054][INFO ][o.e.c.m.MetaDataCreateIndexService] [node-1] [question] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2018-09-05T16:43:48,411][INFO ][o.e.c.m.MetaDataMappingService] [node-1] [question/wRMPdk3dRH6WzO_llGNVOw] create_mapping [question]
+[2018-09-05T16:45:29,878][INFO ][o.e.c.m.MetaDataDeleteIndexService] [node-1] [question/wRMPdk3dRH6WzO_llGNVOw] deleting index
+[2018-09-05T16:45:30,083][INFO ][o.e.c.m.MetaDataCreateIndexService] [node-1] [question] creating index, cause [api], templates [], shards [5]/[1], mappings []
+[2018-09-05T16:45:30,421][INFO ][o.e.c.m.MetaDataMappingService] [node-1] [question/npoxxi0EQ9Og20EboqU6ow] create_mapping [question]
+[2018-09-05T16:46:59,071][INFO ][o.e.c.m.MetaDataMappingService] [node-1] [question/npoxxi0EQ9Og20EboqU6ow] update_mapping [question]
+[2018-09-05T16:52:09,145][INFO ][o.e.b.Bootstrap          ] running graceful exit on windows
+[2018-09-05T16:52:09,147][INFO ][o.e.n.Node               ] [node-1] stopping ...
+[2018-09-05T16:52:09,237][INFO ][o.e.n.Node               ] [node-1] stopped
+[2018-09-05T16:52:09,238][INFO ][o.e.n.Node               ] [node-1] closing ...
+[2018-09-05T16:52:09,246][INFO ][o.e.n.Node               ] [node-1] closed

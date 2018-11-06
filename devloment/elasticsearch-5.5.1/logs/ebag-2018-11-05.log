@@ -1,0 +1,28 @@
+[2018-11-05T09:09:44,598][INFO ][o.e.n.Node               ] [node-1] initializing ...
+[2018-11-05T09:09:52,078][INFO ][o.e.e.NodeEnvironment    ] [node-1] using [1] data paths, mounts [[DATA1 (D:)]], net usable_space [766.3gb], net total_space [809.1gb], spins? [unknown], types [NTFS]
+[2018-11-05T09:09:52,079][INFO ][o.e.e.NodeEnvironment    ] [node-1] heap size [1.9gb], compressed ordinary object pointers [true]
+[2018-11-05T09:09:53,805][INFO ][o.e.n.Node               ] [node-1] node name [node-1], node ID [dEsD1YS3TMe59S5dW417NQ]
+[2018-11-05T09:09:53,806][INFO ][o.e.n.Node               ] [node-1] version[5.5.1], pid[19552], build[19c13d0/2017-07-18T20:44:24.823Z], OS[Windows 10/10.0/amd64], JVM[Oracle Corporation/Java HotSpot(TM) 64-Bit Server VM/1.8.0_112/25.112-b15]
+[2018-11-05T09:09:53,807][INFO ][o.e.n.Node               ] [node-1] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=D:\software\elasticsearch-5.5.1]
+[2018-11-05T09:09:59,174][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [aggs-matrix-stats]
+[2018-11-05T09:09:59,175][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [ingest-common]
+[2018-11-05T09:09:59,175][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-expression]
+[2018-11-05T09:09:59,176][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-groovy]
+[2018-11-05T09:09:59,176][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-mustache]
+[2018-11-05T09:09:59,176][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [lang-painless]
+[2018-11-05T09:09:59,177][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [parent-join]
+[2018-11-05T09:09:59,177][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [percolator]
+[2018-11-05T09:09:59,177][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [reindex]
+[2018-11-05T09:09:59,178][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty3]
+[2018-11-05T09:09:59,178][INFO ][o.e.p.PluginsService     ] [node-1] loaded module [transport-netty4]
+[2018-11-05T09:09:59,179][INFO ][o.e.p.PluginsService     ] [node-1] loaded plugin [analysis-ik]
+[2018-11-05T09:10:10,659][INFO ][o.e.d.DiscoveryModule    ] [node-1] using discovery type [zen]
+[2018-11-05T09:10:11,850][INFO ][o.e.n.Node               ] [node-1] initialized
+[2018-11-05T09:10:11,851][INFO ][o.e.n.Node               ] [node-1] starting ...
+[2018-11-05T09:10:13,979][INFO ][o.e.t.TransportService   ] [node-1] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}
+[2018-11-05T09:10:17,578][INFO ][o.e.c.s.ClusterService   ] [node-1] new_master {node-1}{dEsD1YS3TMe59S5dW417NQ}{PVeJmBiLTT2la0Hx0fbtqQ}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2018-11-05T09:10:17,792][INFO ][o.e.h.n.Netty4HttpServerTransport] [node-1] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}
+[2018-11-05T09:10:17,793][INFO ][o.e.n.Node               ] [node-1] started
+[2018-11-05T09:10:18,794][INFO ][o.w.a.d.Monitor          ] try load config from D:\software\elasticsearch-5.5.1\config\analysis-ik\IKAnalyzer.cfg.xml
+[2018-11-05T09:10:29,078][INFO ][o.e.g.GatewayService     ] [node-1] recovered [4] indices into cluster_state
+[2018-11-05T09:10:48,256][INFO ][o.e.c.r.a.AllocationService] [node-1] Cluster health status changed from [RED] to [YELLOW] (reason: [shards started [[music][3], [music][0]] ...]).
