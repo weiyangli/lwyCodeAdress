@@ -14,6 +14,16 @@ export default new Router({
       path: '/menu',
       name: 'menu',
       component: () => import('@/page/menu.vue')
+    },
+    {
+      path: '/zero',
+      name: 'zero',
+      component: () => import('@/page/zero/zero-list.vue')
+    },
+    {
+      path: '/pick-skin',
+      name: 'pick-skin',
+      component: () => import('@/page/zero/pick-skin.vue')
     }
   ]
 })

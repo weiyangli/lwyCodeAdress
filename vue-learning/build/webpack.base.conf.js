@@ -4,10 +4,14 @@ const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 
+var glob = require('glob');
+var entryJS = glob.sync('./src/page/**/*.js').reduce(function (prev, curr) {
+    prev[curr.slice(6, -3)] = curr;
+    return prev;
+}, {});
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
-
 const createLintingRule = () => ({
   test: /\.(js|vue)$/,
   loader: 'eslint-loader',
@@ -36,6 +40,7 @@ module.exports = {
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
       '@': resolve('src'),
+      '@css': resolve('src/../static/css'),
     }
   },
   module: {

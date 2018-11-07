@@ -38,7 +38,7 @@ public class DemoController {
     @ResponseBody
     public List<Zero> toHelloPage(@PathVariable(required = false) long Id) {
         logger.info("待操作数据Id为" + Id);
-        List<Student> students = demoService.toHelloPage();
+        // List<Student> students = demoService.toHelloPage();
         List<Zero> zeros = demoService.findZero();
         // 抽奖
         for(Zero zero:zeros) {
