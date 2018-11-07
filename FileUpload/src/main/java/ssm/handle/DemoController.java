@@ -1,6 +1,5 @@
 package ssm.handle;
 
-import com.alibaba.fastjson.JSON;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.bean.Student;
 import ssm.bean.Zero;
+import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
-import ssm.service.PrizesThread;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -28,6 +27,9 @@ public class DemoController {
     @Autowired
     private DemoService demoService;
 
+    @Autowired
+    private MessageProducer messageProducer;
+
     /**
      * @param Id
      * @return
@@ -39,11 +41,14 @@ public class DemoController {
         List<Student> students = demoService.toHelloPage();
         List<Zero> zeros = demoService.findZero();
         // 抽奖
-        zeros.forEach(zero -> {
-            PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
+        for(Zero zero:zeros) {
+            // 操作消息队列
+            messageProducer.pickPrize(zero.getName() + " " + zero.getTitle());
+            // 下面抽取奖品逻辑使用mq通道进行
+           /* PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
             PrizesThread prizesThread = new PrizesThread(paChong);
-            new Thread(prizesThread).start();
-        });
+            new Thread(prizesThread).start();*/
+        }
         return zeros;
     }
 
