@@ -2,10 +2,14 @@ package ssm.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.bean.Hero;
 import ssm.bean.School;
+import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
 import ssm.mapper.DemoMapper;
@@ -80,5 +84,31 @@ public class DemoService {
 
     public List<Zero> findZero() {
         return demoMapper.findZero();
+    }
+
+    /*
+    * 爬取皮肤页面
+    * */
+    public void insertSkins() throws Exception{
+        // 一共访问18个页面
+        // 先清除表数据
+        demoMapper.deletesSkin();
+
+        for (int i=1; i<=18; i++) {
+            Document document= Utils.getDocument("http://lol.52pk.com/skinlist_3851_4_"+i+".shtml");
+            Element element = document.getElementsByClass("listBox").first();
+            Elements elements = element.getElementsByTag("dl");
+            System.out.println(elements.size());
+            for(Element element2:elements) {
+                Skin skin = new Skin();
+                String pngUrl = element2.getElementsByTag("dt")
+                        .first().getElementsByTag("a").first().getElementsByTag("img").attr("src");
+                String name = element2.getElementsByTag("dd").first().getElementsByTag("a").first().text();
+                String level = element2.getElementsByTag("dd").select("p").first().getElementsByTag("a").first().text();
+                String price = element2.getElementsByTag("dd").select("p").get(1).text().replaceAll(" ","").split("购买")[0].replace("价格：","");
+                skin.setSkinImg(pngUrl).setSkinLevel(level).setSkinName(name).setSkinPrice(price).setId(idWorker.nextId());
+                demoMapper.insertSkin(skin);
+            }
+        }
     }
 }

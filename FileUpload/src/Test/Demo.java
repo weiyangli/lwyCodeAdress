@@ -32,4 +32,8 @@ public class Demo {
             System.out.println("我是"+school.getName()+"的一名高中生我叫"+student.getNickName()+"今年"+student.getAge());
         }
     }
+    @Test
+    public void insertSkin() throws Exception{
+        demoService.insertSkins();
+    }
 }

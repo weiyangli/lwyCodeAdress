@@ -1,5 +1,6 @@
 package ssm.mapper;
 
+import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
 
@@ -13,4 +14,8 @@ public interface DemoMapper {
     void insertZero(Zero zero);
 
     List<Zero> findZero();
+
+    void insertSkin(Skin skin);
+
+    void deletesSkin();
 }

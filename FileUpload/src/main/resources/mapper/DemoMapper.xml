@@ -29,4 +29,18 @@
     <select id="findZero"  resultType="Zero">
         SELECT id, english_name `key`, china_name name, hero_title title, tags, image FROM hero
     </select>
+
+    <!-- 保存皮肤 -->
+    <insert id="insertSkin">
+        INSERT INTO skin (id, skin_name, skin_img ,skin_level, skin_price, create_time)
+        VALUES (#{id}, #{skinName}, #{skinImg}, #{skinLevel}, #{skinPrice},now())
+
+        ON DUPLICATE KEY
+        UPDATE skin_name = #{skinName}, skin_img = #{skinImg}, skin_level = #{skinLevel}, skin_price = #{skinPrice}
+    </insert>
+
+    <!-- 删除表数据 -->
+    <delete id="deletesSkin">
+        delete from skin
+    </delete>
 </mapper>
