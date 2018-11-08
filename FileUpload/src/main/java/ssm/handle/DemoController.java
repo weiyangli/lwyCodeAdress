@@ -15,6 +15,7 @@ import ssm.bean.Student;
 import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
+import ssm.service.PrizesThread;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -45,9 +46,9 @@ public class DemoController {
             // 操作消息队列
             messageProducer.pickPrize(zero.getName() + " " + zero.getTitle());
             // 下面抽取奖品逻辑使用mq通道进行
-           /* PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
+            PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
             PrizesThread prizesThread = new PrizesThread(paChong);
-            new Thread(prizesThread).start();*/
+            new Thread(prizesThread).start();
         }
         return zeros;
     }

@@ -56,7 +56,7 @@ public class PaChong implements Runnable{
             // 奖品池分为
             String prize = prizesMap.get(num);
             try {
-                Thread.sleep(5000);
+                Thread.sleep(1000);
             }catch (Exception e) {
                 System.out.println("线程终端");
             }

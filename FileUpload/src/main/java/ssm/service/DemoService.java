@@ -6,6 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ssm.bean.Hero;
 import ssm.bean.School;
@@ -13,13 +14,14 @@ import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
 import ssm.mapper.DemoMapper;
+import ssm.service.serviceInterface.DemoServiceInt;
 import ssm.util.Utils;
 
 import java.util.List;
 import java.util.Set;
 
 @Service
-public class DemoService {
+public class DemoService implements DemoServiceInt {
     @Autowired
     private DemoMapper demoMapper;
 
@@ -110,5 +112,13 @@ public class DemoService {
                 demoMapper.insertSkin(skin);
             }
         }
+    }
+
+    /*
+    * 用于测试配置spring aop
+    * */
+    @Override
+    public void insertValue() {
+        System.out.println("我注入了 aop");
     }
 }

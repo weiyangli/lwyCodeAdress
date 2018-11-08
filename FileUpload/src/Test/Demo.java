@@ -36,4 +36,11 @@ public class Demo {
     public void insertSkin() throws Exception{
         demoService.insertSkins();
     }
+    /*
+    * 测试spring Aop
+    * */
+    @Test
+    public void testAop() {
+        demoService.insertValue();
+    }
 }
