@@ -2,8 +2,11 @@ package ssm.handle;
 
 import lombok.Getter;
 import lombok.Setter;
+import ssm.util.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -45,7 +48,8 @@ public class PaChong implements Runnable{
         new Thread(paChong3).start();
     }
     // 随机获取对应的礼品
-    public void random () {
+    public Prize random () {
+        Prize getPrize = null;
         // 计算当前用户属于什么级别的用户(级别高的可以获取价值高的奖品)
         synchronized (key){
             Random r = new Random();
@@ -56,7 +60,7 @@ public class PaChong implements Runnable{
             // 奖品池分为
             String prize = prizesMap.get(num);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(50);
             }catch (Exception e) {
                 System.out.println("线程终端");
             }
@@ -65,21 +69,30 @@ public class PaChong implements Runnable{
                 System.out.println(name+"这次运气不是太好哦，再来一次吧");
             } else {
                 System.out.println("恭喜"+name+"朋友获得了"+prize);
+                getPrize = new Prize(prize, num, name);
             }
             System.out.println("-------------------------------------------->>");
        }
+       return getPrize;
     }
 
     @Getter
     @Setter
     public class Prize {
-        private String prizeName;
-        private double prizeRate;
+        private int prizeNum;  // 奖品号码
+        private String Winner; // 中奖人
+        private String prizeName; // 奖品名称
+        private double prizeRate; // 中奖概率
 
         /* 构造方法 */
         public Prize(String prizeName,double prizeRate) {
             this.prizeName = prizeName;
             this.prizeRate = prizeRate;
+        }
+        public Prize(String prizeName,int prizeNum, String Winner) {
+            this.prizeName = prizeName;
+            this.prizeNum = prizeNum;
+            this.Winner = Winner;
         }
     }
 

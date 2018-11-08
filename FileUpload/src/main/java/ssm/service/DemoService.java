@@ -13,10 +13,12 @@ import ssm.bean.School;
 import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
+import ssm.handle.PaChong;
 import ssm.mapper.DemoMapper;
 import ssm.service.serviceInterface.DemoServiceInt;
 import ssm.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -120,5 +122,23 @@ public class DemoService implements DemoServiceInt {
     @Override
     public void insertValue() {
         System.out.println("我注入了 aop");
+    }
+
+    public void genPrizesExcel(){
+        List<Zero> zeros = findZero();
+        List<PaChong.Prize> prizeList = new ArrayList<>();
+        for(Zero zero:zeros) {
+            PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
+            PaChong.Prize prize = paChong.random();
+            if (prize != null) {
+                prizeList.add(prize);
+            }
+        }
+        // 生成excel
+        try {
+            Utils.genExcelData(prizeList);
+        }catch (Exception e) {
+            System.out.println("奖品列表导出异常----->"+e);
+        }
     }
 }

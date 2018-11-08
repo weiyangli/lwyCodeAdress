@@ -43,4 +43,12 @@ public class Demo {
     public void testAop() {
         demoService.insertValue();
     }
+
+    /*
+     * 测试生成excel
+     * */
+    @Test
+    public void genExcel() {
+        demoService.genPrizesExcel();
+    }
 }

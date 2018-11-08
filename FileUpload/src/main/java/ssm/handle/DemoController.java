@@ -16,9 +16,11 @@ import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
 import ssm.service.PrizesThread;
+import ssm.util.Utils;
 
 import javax.validation.Valid;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -43,12 +45,8 @@ public class DemoController {
         List<Zero> zeros = demoService.findZero();
         // 抽奖
         for(Zero zero:zeros) {
-            // 操作消息队列
+            // 操作消息队列,使用mq通道进行
             messageProducer.pickPrize(zero.getName() + " " + zero.getTitle());
-            // 下面抽取奖品逻辑使用mq通道进行
-            PaChong paChong = new PaChong(zero.getName() + " " + zero.getTitle());
-            PrizesThread prizesThread = new PrizesThread(paChong);
-            new Thread(prizesThread).start();
         }
         return zeros;
     }

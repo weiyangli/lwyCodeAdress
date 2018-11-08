@@ -13,6 +13,10 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,6 +29,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import ssm.bean.Zero;
+import ssm.handle.PaChong;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -33,8 +39,10 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -510,6 +518,53 @@ public final class Utils {
             FileUtils.copyURLToFile(httpUrl, new File(dir + fileName));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /*
+    * 到处excel表格
+    * */
+    public static void genExcelData(List<PaChong.Prize> prizes) throws  Exception{
+        // 先生成一个excel文件
+        String uuid = UUID.randomUUID().toString().substring(0,10).replace("-","");
+        File file = new File ("C:/Users/47477/Desktop/"+uuid+"_prize.xlsx");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        // 创建excel表
+        Workbook wk = new HSSFWorkbook();
+        // 创建sheet
+        Sheet sheet = wk.createSheet("抽奖记录");
+        // 当前excel创建第一行作为表头
+        Row row = sheet.createRow(0);
+        // 插入表头字段
+        row.createCell(0).setCellValue("客户名称");
+        row.createCell(2).setCellValue("奖品号码");
+        row.createCell(1).setCellValue("奖品名称");
+        // 将奖品数据插入excel表
+        if (prizes.size() > 0) {
+            for(int i =1; i<=prizes.size(); i++) {
+                Row rowChild =  sheet.createRow(i);
+                rowChild.createCell(0).setCellValue(prizes.get(i-1).getWinner());//客户名称
+                sheet.setColumnWidth( 0,prizes.get(i-1).getWinner().getBytes().length*2*256);
+                rowChild.createCell(2).setCellValue(prizes.get(i-1).getPrizeNum());//奖品号码
+                sheet.setColumnWidth( 1,prizes.get(i-1).getPrizeName().getBytes().length*2*256);
+                rowChild.createCell(1).setCellValue(prizes.get(i-1).getPrizeName());//奖品名称
+            }
+        }
+        // 将文件写入到io流中
+        OutputStream os =  new FileOutputStream(file);
+        try {
+            wk.write(os);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            try {
+                wk.close();
+                os.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
