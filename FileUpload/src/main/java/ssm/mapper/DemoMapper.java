@@ -18,4 +18,6 @@ public interface DemoMapper {
     void insertSkin(Skin skin);
 
     void deletesSkin();
+
+    List<Skin> findZeroSkin();
 }

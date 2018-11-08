@@ -6,7 +6,6 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import ssm.bean.Hero;
 import ssm.bean.School;
@@ -19,6 +18,7 @@ import ssm.service.serviceInterface.DemoServiceInt;
 import ssm.util.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -141,4 +141,31 @@ public class DemoService implements DemoServiceInt {
             System.out.println("奖品列表导出异常----->"+e);
         }
     }
+
+    /*
+    * 查询英雄皮肤列表(放到redis)
+    *
+    * */
+    public void findZeroSkins() {
+        // 查询皮肤数据
+        List<Skin> skins = demoMapper.findZeroSkin();
+        // 批量插入缓存
+        for (Skin skin : skins) {
+            redisService.insertSkin(skin,skin.getId());
+        }
+    }
+
+    /*
+    * 查询缓存上的皮肤随机或取 count 条数据
+    * */
+    public List<Skin> extractSkin(int count) {
+        List<Skin> skins = demoMapper.findZeroSkin();
+        count = count > skins.size() ? skins.size() : count;
+        // 查询redis
+        Collections.shuffle(skins);
+
+        skins = skins.subList(0,count);
+        return skins;
+    }
+
 }

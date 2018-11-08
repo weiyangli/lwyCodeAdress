@@ -34,7 +34,8 @@ public class Demo {
     }
     @Test
     public void insertSkin() throws Exception{
-        demoService.insertSkins();
+        //demoService.insertSkins();
+        demoService.findZeroSkins();
     }
     /*
     * 测试spring Aop

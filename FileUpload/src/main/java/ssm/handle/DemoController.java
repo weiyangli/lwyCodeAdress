@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
@@ -83,4 +85,15 @@ public class DemoController {
      * 调用转换服务，先跟据待转化的文件生成一个zookeeper的节点key,利用线程同步连接zk,连接zk后开始转换文件，文件转换完以后释放
      * zk，返回转换后的文件预览路径。
      * */
+
+    /**
+     * @param count
+     * @return
+     */
+    @RequestMapping(value = Urls.HERO_PICK_SKIN, method = RequestMethod.GET)
+    @ResponseBody
+    public  List<Skin> toHelloPage(@RequestParam int count) {
+        logger.info("想要抽取" + count);
+        return demoService.extractSkin(count);
+    }
 }

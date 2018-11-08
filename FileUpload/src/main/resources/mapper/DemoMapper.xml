@@ -30,6 +30,11 @@
         SELECT id, english_name `key`, china_name name, hero_title title, tags, image FROM hero
     </select>
 
+    <!-- 查询皮肤 -->
+    <select id="findZeroSkin"  resultType="Skin">
+        SELECT id , skin_name skinName, skin_img skinImg, skin_level skinLevel,skin_price skinPrice FROM skin
+    </select>
+
     <!-- 保存皮肤 -->
     <insert id="insertSkin">
         INSERT INTO skin (id, skin_name, skin_img ,skin_level, skin_price, create_time)
