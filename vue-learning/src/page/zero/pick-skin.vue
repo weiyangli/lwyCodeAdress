@@ -1,6 +1,6 @@
 <template>
     <div class="pick-skin">
-      <Modal v-model="pickModal" title="你获得了以下奖励" class="pick-modal">
+      <Modal v-model="pickModal" title="你获得了以下奖励" width="800px" class="pick-modal">
             <div v-for="skin in skins" :key="skin.id" class="skin-box">
                 <img :src="skin.skinImg" class="skin-img"/>
                 <span>{{ skin.skinName }}</span>
@@ -31,8 +31,8 @@ export default {
         if(isNaN(this.pickCount)){
           this.$Message.warning('只能填写数字');
           return;
-        } else if (this.pickCount > 50){
-          this.$Message.warning('每次抽奖次数不超过50次');
+        } else if (this.pickCount > 500){
+          this.$Message.warning('每次抽奖次数不超过500次');
           return;
         }
         // 输入数据校验通过，开始抽取皮肤
@@ -51,8 +51,8 @@ export default {
         getPromise(url) {
         let p = new Promise((resolve,reject) => {
         let xhr = new XMLHttpRequest;
-      xhr.open('get', url, true);
-      xhr.onreadystatechange = () => {
+        xhr.open('get', url, true);
+        xhr.onreadystatechange = () => {
         if (xhr.status == 200 && xhr.readyState===4 ){
           resolve(xhr.responseText);
         }
@@ -74,7 +74,6 @@ export default {
         .pick-modal {
             display: flex;
             flex-direction: column;
-            
         }
         .random-pick {
             display: flex;

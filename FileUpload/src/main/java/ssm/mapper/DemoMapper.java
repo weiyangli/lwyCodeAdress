@@ -9,7 +9,7 @@ import java.util.List;
 public interface DemoMapper {
     List<Student> toHelloPage();
 
-    void toHelloPages();
+    void toHelloPages(Student student);
 
     void insertZero(Zero zero);
 

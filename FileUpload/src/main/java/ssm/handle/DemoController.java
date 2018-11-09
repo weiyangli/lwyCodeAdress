@@ -6,8 +6,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,12 @@ public class DemoController {
     @Autowired
     private MessageProducer messageProducer;
 
+    @GetMapping("/")
+    public String index() {
+        System.out.println("劲来了");
+        return "/page/html/index.html";
+    }
+
     /**
      * @param Id
      * @return
@@ -58,10 +65,9 @@ public class DemoController {
      * @param bindingResult
      * @return
      */
-    @RequestMapping(value = Urls.PAGE_DEMO_CREATE, method = RequestMethod.POST)
+    @PostMapping(Urls.PAGE_DEMO_CREATE)
     @ResponseBody
-    public String toHelloPages(@RequestBody @Valid Student student, BindingResult bindingResult) {
-        logger.info("待操作数据Id为" + student.getAge());
+    public String toHelloPages(Student student, BindingResult bindingResult) {
         demoService.toHelloPages(student);
         return student.getUserName();
     }

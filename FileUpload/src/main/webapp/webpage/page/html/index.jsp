@@ -3,13 +3,13 @@
 <html>
 <head>
     <title>上传</title>
-    <link href="index.less" rel="stylesheet/less" type="text/css"/>
+    <link href="/page/css/index.less" rel="stylesheet/less" type="text/css"/>
 </head>
 <body>
     <div class="box">
-        <a href="/webpage/page/html/upload.html" class="a">发送给</a>
+        <a href="/page/html/upload.html" class="a">发送给</a>
     </div>
 </body>
-<script type="text/javascript" src="./webpage/page/js/less.min.js"></script>
+<script type="text/javascript" src="/page/js/less.min.js"></script>
 <script type="text/javascript">
 </script>

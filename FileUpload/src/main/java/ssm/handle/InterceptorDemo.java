@@ -16,7 +16,7 @@ public class InterceptorDemo implements HandlerInterceptor {
         return true;
     }
     /*
-     * 预处理返回true后postHandle调用做一些返回处理
+     * 预处理返回true后postHandle调用做一些返回处理(请求的方法访问结束后调用)
      * */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -24,7 +24,7 @@ public class InterceptorDemo implements HandlerInterceptor {
     }
 
     /*
-    * 后处理方法待放回处理执行完后，方法所有业务处理完以后执行
+    * 后处理方法待放回处理执行完后，方法所有业务处理完以后执行(请求的方法访问结束后调用)
     * */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {

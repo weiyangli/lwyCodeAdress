@@ -50,7 +50,9 @@
     <servlet-name>springmvc</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
+  <!-- springmvc将所有的请求全部拦截了，所以不管是图片还是页面所有的资源都不能访问了，可以通过
+   application-servlet.xml 配置mapping 映射想要访问的静态资源-->
+ <!-- <servlet-mapping>
     <servlet-name>default</servlet-name>
     <url-pattern>*.css</url-pattern>
   </servlet-mapping>
@@ -66,4 +68,20 @@
     <servlet-name>default</servlet-name>
     <url-pattern>*.less</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.png</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  <servlet-name>default</servlet-name>
+  <url-pattern>*.img</url-pattern>
+</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.jpg</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.gif</url-pattern>
+  </servlet-mapping>-->
 </web-app>

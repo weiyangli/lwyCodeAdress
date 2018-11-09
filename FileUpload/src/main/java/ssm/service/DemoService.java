@@ -5,6 +5,8 @@ import com.alibaba.fastjson.JSONObject;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssm.bean.Hero;
@@ -12,6 +14,7 @@ import ssm.bean.School;
 import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
+import ssm.handle.DemoController;
 import ssm.handle.PaChong;
 import ssm.mapper.DemoMapper;
 import ssm.service.serviceInterface.DemoServiceInt;
@@ -24,6 +27,8 @@ import java.util.Set;
 
 @Service
 public class DemoService implements DemoServiceInt {
+    private static Logger logger = LoggerFactory.getLogger(DemoService.class.getName());
+
     @Autowired
     private DemoMapper demoMapper;
 
@@ -43,10 +48,9 @@ public class DemoService implements DemoServiceInt {
     }
 
     public void toHelloPages(Student student) {
-        if (student.getStudentId() == 0) {
-            student.setStudentId(idWorker.nextId());
-        }
-        demoMapper.toHelloPages();
+        student.setStudentId(idWorker.nextId());
+        logger.info("待操作数据Id为--->" + student.getStudentId());
+        demoMapper.toHelloPages(student);
     }
 
     /**
@@ -124,6 +128,9 @@ public class DemoService implements DemoServiceInt {
         System.out.println("我注入了 aop");
     }
 
+    /*
+    * 导出中奖名单
+    * */
     public void genPrizesExcel(){
         List<Zero> zeros = findZero();
         List<PaChong.Prize> prizeList = new ArrayList<>();
