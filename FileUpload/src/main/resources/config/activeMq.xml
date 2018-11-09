@@ -25,14 +25,6 @@
     <!-- ==================================================================================== -->
 
     <!-- 2.1 消息目的地，点对点的 (文档和视频转换使用不同的队列便于服务细分和拆分) -->
-    <!-- 文档转换队列 -->
-    <bean id="pdfConvertQueue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg value="pdf-convert-queue"/>
-    </bean>
-    <!-- 视频转换队列 -->
-    <bean id="mp4ConvertQueue" class="org.apache.activemq.command.ActiveMQQueue">
-        <constructor-arg value="mp4-convert-queue"/>
-    </bean>
     <!-- 英雄抽取礼物 -->
     <bean id="zeroPickPrize" class="org.apache.activemq.command.ActiveMQQueue">
         <constructor-arg value="zero-pick-prize"/>

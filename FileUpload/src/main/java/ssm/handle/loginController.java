@@ -10,6 +10,6 @@ public class loginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String index(User user) {
         System.out.println("劲来了----->"+user.getUsername());
-        return "/page/html/index.html";
+        return "/static/demo";
     }
 }

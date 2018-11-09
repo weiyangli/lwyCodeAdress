@@ -17,6 +17,7 @@
     <import resource="classpath:config/activeMq.xml"/>
     <import resource="classpath:config/spring-task.xml"/>
     <import resource="classpath:config/spring-aop.xml"/>
+    <import resource="classpath:config/spring-view-controller.xml"/>
 
     <!-- ssm.Service 应该是 Servlet 无关的，Controller 是 Servlet 相关的 -->
     <context:component-scan base-package="ssm.service"/>
