@@ -13,6 +13,9 @@
     <!-- 加载配置 -->
     <context:property-placeholder location="classpath:config/application.properties" file-encoding="UTF-8"/>
 
+   <!--&lt;!&ndash;  静态文件的 URL 映射 -->
+    <!--<import resource="classpath:config/spring-view-controller.xml"/>&ndash;&gt;-->
+
     <!-- 控制器 -->
     <context:component-scan base-package="ssm.handle"/>
 
@@ -94,8 +97,16 @@
 
     <!-- 静态资源的访问，如 js, css, jpg, png -->
     <!-- 如 HTML 里访问 /static/js/jquery.js, 则实际访问的是 /WEB-INF/static/js/jquery.js -->
-    <mvc:resources mapping="/page/css/**" location="/webpage/page/css/" cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/page/css/**"  location="/webpage/page/css/" cache-period="${cachePeriod}"/>
     <mvc:resources mapping="/page/html/**" location="/webpage/page/html/" cache-period="${cachePeriod}"/>
-    <mvc:resources mapping="/page/img/**" location="/webpage/page/img/" cache-period="${cachePeriod}"/>
-    <mvc:resources mapping="/page/js/**" location="/webpage/page/js/" cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/page/img/**"  location="/webpage/page/img/" cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/page/js/**"   location="/webpage/page/js/" cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/page/zero/**"   location="/WEB-INF/page/zero/" cache-period="${cachePeriod}"/>
+
+    <mvc:resources mapping="/static/js/**"      location="/WEB-INF/static/js/"      cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/static/css/**"     location="/WEB-INF/static/css/"     cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/static/img/**"     location="/WEB-INF/static/img/"     cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/static/fonts/**"   location="/WEB-INF/static/fonts/"   cache-period="${cachePeriod}"/>
+    <mvc:resources mapping="/static/lib/**"     location="/WEB-INF/static/lib/"     cache-period="${cachePeriod}"/>
+
 </beans>
