@@ -14,12 +14,13 @@
             </div>
         <!--右侧上传form -->
             <div class="right-box">
-                <form action="/api/demo/test" method="post" class="upload_form">
+                <form action="/api/demo/test" method="post" class="upload_form" enctype="multipart/form-data">
                     <table>
                         <input type="text" name="userName" value="海贼王" style="margin-bottom: 10px;">
                         <input type="text" name="nickName" value="海贼王" style="margin-bottom: 10px;">
                         <input type="text" name="sex" value="男" style="margin-bottom: 10px;">
                         <input type="text" name="age" value="22" style="margin-bottom: 10px;">
+                        <input type="file" name="avatar" style="margin-bottom: 10px;">
                         <button class="push-button">提交</button>
                     </table>
                 </form>

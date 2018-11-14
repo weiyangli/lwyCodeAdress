@@ -28,7 +28,7 @@ public class WebServicePublishListener implements ServletContextListener {
         }catch (Exception e){
             System.out.println("获取本地Ip失败");
         }
-        String ip=addr.getHostAddress(); //获取本机ip
+        String ip = addr.getHostAddress(); //获取本机ip
         System.out.println("获取本地的Ip为---》"+ip);
         //WebService的发布地址
         String address = "http://192.168.10.158:8080/WS_Server/WebService";

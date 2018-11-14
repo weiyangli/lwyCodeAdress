@@ -1,29 +1,22 @@
 package ssm.handle;
 
 import org.apache.commons.io.FileUtils;
+import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
-import ssm.service.PrizesThread;
-import ssm.util.Utils;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -53,7 +46,7 @@ public class DemoController {
         // List<Student> students = demoService.toHelloPage();
         List<Zero> zeros = demoService.findZero();
         // 抽奖
-        for(Zero zero:zeros) {
+        for (Zero zero : zeros) {
             // 操作消息队列,使用mq通道进行
             messageProducer.pickPrize(zero.getName() + " " + zero.getTitle());
         }
@@ -67,7 +60,10 @@ public class DemoController {
      */
     @PostMapping(Urls.PAGE_DEMO_CREATE)
     @ResponseBody
-    public String toHelloPages(Student student, BindingResult bindingResult) {
+    public String toHelloPages(Student student, MultipartFile avatar, BindingResult bindingResult, HttpServletRequest request) throws Exception{
+        // 处理图片
+        String resultPath = demoService.dealFile(avatar,"C:/Users/47477/Desktop/img/");
+        student.setAvatarFileName(resultPath);
         demoService.toHelloPages(student);
         return student.getUserName();
     }
@@ -98,8 +94,18 @@ public class DemoController {
      */
     @RequestMapping(value = Urls.HERO_PICK_SKIN, method = RequestMethod.GET)
     @ResponseBody
-    public  List<Skin> toHelloPage(@RequestParam int count) {
+    public List<Skin> toHelloPage(@RequestParam int count) {
         logger.info("想要抽取" + count);
         return demoService.extractSkin(count);
+    }
+
+    /*
+    * 用于微信小程序图片上传
+    * */
+    @RequestMapping(value = Urls.UPLOAD_FILE, method = RequestMethod.POST)
+    @ResponseBody
+    public String uploadFile(@RequestParam MultipartFile file) throws  Exception{
+        String resultPath = demoService.dealFile(file,"C:/Users/47477/Desktop/img/");
+        return resultPath;
     }
 }

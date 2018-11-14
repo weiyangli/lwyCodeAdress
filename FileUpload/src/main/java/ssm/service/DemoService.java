@@ -2,6 +2,7 @@ package ssm.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.io.FileUtils;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Hero;
 import ssm.bean.School;
 import ssm.bean.Skin;
@@ -20,6 +22,9 @@ import ssm.mapper.DemoMapper;
 import ssm.service.serviceInterface.DemoServiceInt;
 import ssm.util.Utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -175,4 +180,14 @@ public class DemoService implements DemoServiceInt {
         return skins;
     }
 
+    public String dealFile(MultipartFile avatar,String targetPath) throws Exception{
+        // 获取文件名
+        String originalFilename   = avatar.getOriginalFilename();
+        // 拼接目标文件名
+        targetPath = targetPath + originalFilename;
+        // 创建新的文件
+        File file = new File(targetPath);
+        FileUtils.copyInputStreamToFile(avatar.getInputStream(), file);
+        return targetPath;
+    }
 }

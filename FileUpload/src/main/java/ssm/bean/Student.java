@@ -3,8 +3,10 @@ package ssm.bean;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
+import java.io.File;
 import java.io.Serializable;
 
 @Setter
@@ -17,4 +19,5 @@ public class Student implements Serializable {
     private String nickName;     // 昵称
     private String sex;          // 性别
     private int age;             // 年龄
+    private String avatarFileName; // 图片地址
 }
