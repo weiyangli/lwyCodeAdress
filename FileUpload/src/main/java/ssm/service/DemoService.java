@@ -209,6 +209,7 @@ public class DemoService implements DemoServiceInt {
         // [1] 检验用户是否已经有了抽奖号码(每一个用户只能有一个号码)
         String json = redisService.getJsonObject(RedisKeys.PICK_NUM + openId + "_" + prizeId);
         if (StringUtils.isNotBlank(json)) {
+            userPrizeNum = JSONObject.parseObject(json, UserPrizeNum.class);
             userPrizeNum.initMe(ResultConstant.USER_PICKNUM_EXTRACTED);
         } else {
             // [2] 生成用户抽奖号码(控制线程避免重复号码)
@@ -224,6 +225,8 @@ public class DemoService implements DemoServiceInt {
             redisService.insert(userPrizeNum, RedisKeys.PICK_NUM + openId + "_" + prizeId);
             // 插入数据库
             demoMapper.insetPickNum(userPrizeNum);
+            // 返回成功
+            userPrizeNum.initMe(ResultConstant.SUCCESS);
         }
         return userPrizeNum;
     }

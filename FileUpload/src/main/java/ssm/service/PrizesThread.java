@@ -1,5 +1,6 @@
 package ssm.service;
 
+import org.springframework.stereotype.Service;
 import ssm.handle.PaChong;
 
 public class PrizesThread implements Runnable {

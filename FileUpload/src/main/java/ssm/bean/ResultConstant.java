@@ -6,7 +6,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Accessors(chain = true)
 public enum ResultConstant {
-    SYSTEM_ERROR(404,"系统错误"),
+    SYSTEM_ERROR(500,"系统错误"),
     USER_PICKNUM_EXTRACTED(1000,"已抽取过号码!"),
     SUCCESS(200,"请求成功");
 
@@ -18,5 +18,8 @@ public enum ResultConstant {
     ResultConstant(int code, String desc) {
         this.code = code;
         this.desc = desc;
+    }
+
+    public static void main(String[] args) {
     }
 }

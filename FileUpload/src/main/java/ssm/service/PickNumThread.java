@@ -16,8 +16,6 @@ public class PickNumThread implements Runnable {
     @Autowired
     private DemoMapper demoMapper;
 
-    private Object key = "key"; // 线程锁
-
     private static final int MIN_NUM = 20000; // 每个数字对应的号码从20000开始小于30000
     private static final int MAX_NUM = 30000; // 每个数字对应的号码从20000开始小于30000
     private static Long prizeId;
@@ -37,7 +35,8 @@ public class PickNumThread implements Runnable {
     }
 
     public String getPickNum() {
-        synchronized (key) {
+        // 用奖品id做线程锁
+        synchronized (prizeId) {
             logger.info("开始生成用户抽奖码,奖品id为----》" + prizeId);
             // 查询最新的一个号码
             List<UserPrizeNum> newUserPrizeNums = demoMapper.findNewNum(prizeId);
@@ -67,4 +66,6 @@ public class PickNumThread implements Runnable {
         }
         return pickNum;
     }
+
+    // 根据奖品开奖时间自动开奖
 }
