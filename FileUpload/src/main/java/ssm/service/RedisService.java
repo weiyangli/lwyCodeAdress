@@ -53,4 +53,9 @@ public class RedisService {
         }
         return json;
     }
+
+    public void insert (Object object, String key) {
+        log.info("进入操作redis");
+        redisTemplate.opsForValue().set(key,JSON.toJSONString(object));
+    }
 }

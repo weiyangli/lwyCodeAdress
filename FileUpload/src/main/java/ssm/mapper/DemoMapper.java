@@ -2,6 +2,7 @@ package ssm.mapper;
 
 import ssm.bean.Skin;
 import ssm.bean.Student;
+import ssm.bean.UserPrizeNum;
 import ssm.bean.Zero;
 
 import java.util.List;
@@ -20,4 +21,8 @@ public interface DemoMapper {
     void deletesSkin();
 
     List<Skin> findZeroSkin();
+
+    List<UserPrizeNum> findNewNum(Long prizeId);
+
+    void insetPickNum(UserPrizeNum userPrizeNum);
 }

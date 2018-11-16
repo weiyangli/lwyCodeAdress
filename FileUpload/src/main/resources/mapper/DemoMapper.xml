@@ -48,4 +48,15 @@
     <delete id="deletesSkin">
         delete from skin
     </delete>
+
+    <!-- 查询最新的抽奖号码 -->
+    <select id="findNewNum" resultType="UserPrizeNum">
+        SELECT id, openid openId, prize_num prizeNum, create_time createTime, user_name userName FROM user_openId
+        WHERE prize_id = #{prizeId} ORDER BY create_time DESC limit 0,1
+    </select>
+    <!-- 保存抽奖号码 -->
+    <insert id="insetPickNum">
+        INSERT INTO user_openid (id, openid, prize_num ,create_time, user_name, prize_id)
+        VALUES (#{id}, #{openId}, #{prizeNum}, now(), #{userName},#{prizeId})
+    </insert>
 </mapper>

@@ -1,7 +1,6 @@
 package ssm.handle;
 
 import org.apache.commons.io.FileUtils;
-import org.jboss.netty.handler.codec.http.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Skin;
 import ssm.bean.Student;
+import ssm.bean.UserPrizeNum;
 import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
@@ -107,5 +107,16 @@ public class DemoController {
     public String uploadFile(@RequestParam MultipartFile file) throws  Exception{
         String resultPath = demoService.dealFile(file,"C:/Users/47477/Desktop/img/");
         return resultPath;
+    }
+
+    /*
+    * 微信小程序获取抽奖号码
+    * */
+    @RequestMapping(value = Urls.GET_PICK_PRIZE_NUM, method = RequestMethod.GET)
+    @ResponseBody
+    public UserPrizeNum getPickPrizeNum(@PathVariable String openId,
+                                        @RequestParam Long prizeId) {
+        UserPrizeNum userPrizeNum =  demoService.getPickPrizeNum(openId,prizeId);
+        return userPrizeNum;
     }
 }
