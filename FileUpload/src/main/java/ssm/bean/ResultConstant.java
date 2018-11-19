@@ -21,5 +21,6 @@ public enum ResultConstant {
     }
 
     public static void main(String[] args) {
+        ResultConstant.USER_PICKNUM_EXTRACTED.getCode();
     }
 }

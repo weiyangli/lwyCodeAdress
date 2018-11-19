@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 非常重要：必须是 Mapper 类的全路径-->
+<mapper namespace="ssm.mapper.PrizeMapper">
+    <select id="findPrizes" resultType="WenXinPrize">
+        SELECT id, prize_name prizeName, prize_price prizePrice, prize_img prizeImg, is_enable Enable, be_pick_num bePickNum,pick_time pickTime,create_time createTime FROM prize
+    </select>
+    <insert id="addPrize">
+        INSERT INTO prize (id, prize_name, prize_price ,prize_img, is_enable, be_pick_num,pick_time,create_time)
+        VALUES (#{id}, #{prizeName}, #{prizePrice}, #{prizeImg}, 0, 0, #{pickTime}, NOW())
+    </insert>
+</mapper>
