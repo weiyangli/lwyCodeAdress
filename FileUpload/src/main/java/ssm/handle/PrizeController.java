@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import ssm.bean.Result;
 import ssm.bean.ResultConstant;
@@ -29,9 +30,8 @@ public class PrizeController {
 
     @RequestMapping(value = Urls.PRIZES_LIST, method = RequestMethod.GET)
     @ResponseBody
-    public List<WenXinPrize> findPrizes() {
-
-        return prizeService.findPrizes();
+    public List<WenXinPrize> findPrizes(@RequestParam (defaultValue = "0") int enable) {
+        return prizeService.findPrizes(enable,null);
     }
 
     @RequestMapping(value = Urls.ADD_PRIZE, method = RequestMethod.POST)

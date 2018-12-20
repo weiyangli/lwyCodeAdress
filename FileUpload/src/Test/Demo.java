@@ -3,9 +3,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.School;
 import ssm.bean.Student;
 import ssm.service.DemoService;
+import ssm.service.ExamImportService;
 import ssm.service.RedisService;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public class Demo {
 
     @Autowired
     private DemoService demoService;
+
+    @Autowired
+    private ExamImportService examImportService;
 
     @Test
     public  void demoTest () {
@@ -52,4 +57,5 @@ public class Demo {
     public void genExcel() {
         demoService.genPrizesExcel();
     }
+
 }

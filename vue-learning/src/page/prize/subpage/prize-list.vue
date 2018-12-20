@@ -1,5 +1,12 @@
 <template>
     <div class="prizes-list">
+        <Modal
+        v-model="pushPickModal"
+        @on-ok="pushPick">
+            <div>
+                抽奖时间为:<DatePicker v-model="sj" type="datetime" placeholder="Select time"/>
+            </div>
+       </Modal>
         <!-- 添加奖品-->
         <Modal ref="modal" v-model="addPrizeModal" :loading="publishing" title="添加奖品" footer-hide class="prize-modal">
             <Form ref="prizeForm" :rules="rules" :model="prizeForm">
@@ -27,6 +34,9 @@
                 <Button type="primary" @click="publish">确定</Button>
             </div>
         </Modal>
+        <Input placeholder="Enter text" style="width: auto;margin-right:15px">
+            <Icon slot="suffix" type="ios-search" />
+        </Input>
         <Button type="success" ghost class="pick-button" @click="addPrize">添加奖品</Button>
         <Table :columns="columns" :data="prizes"></Table>
     </div>
@@ -35,19 +45,26 @@
 export default {
     data () {
         return {
+            pushPrise:{},
+            sj:'',
+            pushPickModal: false,
             format:['jpg','jpeg','png'],
             publishing: false,
             prizeForm: {
+                id:0,
                 prizeName:'',
                 prizePrice:0,
-                prizeImg:'123',
-                Enable:0,
+                prizeImg:'',
+                enable:0,
                 bePickNum:0,
                 pickTime:''
             },
             rules: {
                 prizeName : [{required: true, message: '请输入奖品名称', trigger: 'blur'}],
-                prizePrice : [{required: true, type:'number', message: '请输入价格', trigger: 'blur'}],
+                prizePrice : [{required: true, type:'number', message: '请输入价格,必需大于0', trigger: 'change',transform(value) {
+                    let a = value > 0 ? true : false
+                return 0;
+    }}],
                 prizeImg : [{required: true, message: '请请上传图片', trigger: 'blur'}],
             },
             addPrizeModal:false,
@@ -68,7 +85,7 @@ export default {
                   return h('div', [
                     h('img', {
                       attrs: {
-                        src: params.row.prizeImg
+                        src: "/api/image/preview?fileUrl="+params.row.prizeImg
                       },
                       style: {
                         width: '40px',
@@ -94,37 +111,44 @@ export default {
                     width:150,
                 },
                  {
-                        title: '操作',
+                        title: '设置',
                         key: 'action',
                         align: 'center',
                         render: (h, params) => {
-                            return h('div', [
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.show(params.index)
-                                        }
-                                    }
-                                }, '设置为抽奖奖品'),
-                                h('Button', {
-                                    props: {
-                                        type: 'error',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.remove(params.index)
-                                        }
-                                    }
-                                }, '查看以往中奖名单')
-                            ]);
+                           if (params.row.enable == 0) {
+                                return (
+                                    <div class='remark-box'>
+                                        <i-button type='primary' onClick={()=>{this.pushToPick(params.row)}}>设置为抽奖奖品</i-button>
+                                    </div>
+                                )
+                            } else {
+                                return (
+                                    <div class='remark-box'>
+                                        <i-button disabled>等待开奖</i-button>
+                                    </div>
+                                )
+                            }
+                        }
+                 },
+                 {
+                        title: '历史记录',
+                        key: 'action',
+                        align: 'center',
+                        render: (h, params) => {
+                            if (params.row.bePickNum > 0) { 
+                                return (
+                                    <div>
+                                    <i-button type='success'>查看中奖历史</i-button>
+                                </div>
+                                )
+                            } else {
+                            return (
+                                    <div class='remark-box'>
+                                        <i-button disabled>未设置为奖品</i-button>
+                                    </div>
+                                )
+                            }
+                            
                         }
                  }
             ],
@@ -137,20 +161,15 @@ export default {
     },
     methods: {
         // 图片上传成功调用
-        onSuccess(result, file, fileList) {
-            alert(1)
-                if (result.success) {
-                    alert(1)
-                    const fileFromServer = result.data; // 上传成功后服务器返回的文件信息
-                    console.log(fileFromServer)
-                } else {
-                     alert(2)
-                    console.warn(result.data);
-                }
-            },
+        onSuccess(result, fileList) {
+            if (result) {
+                this.prizeForm.prizeImg = result;
+                alert(result);
+            }
+        },
         // 查询英雄列表
         findPrizes(){
-            this.prizes = [];
+          this.prizes = [];
           let promise = this.getPromise('/api/prizes');
           promise.
           then(data => {
@@ -185,20 +204,39 @@ export default {
         this.$refs.modal.close();
     },
         publish() {
-             let adminInfo=JSON.parse(JSON.stringify(this.prizeForm));
+          let adminInfo=JSON.parse(JSON.stringify(this.prizeForm));
           this.$refs.prizeForm.validate((valid) => {
                 if (valid) {
                     this.$http.post('/api/add/prize', adminInfo,)
+                     .then(function (response) {
+                   })
+                     .catch(function (error) {
+                      console.log(error);
+                   });
+                   this.prizeForm.createTime = new date();
+                   this.prizes.push(this.prizeForm);
+                   this.cancel();
+                } else {
+                    this.$Message.warning('请完整奖品信息');
+                }
+          });
+    },
+    // 设置奖品为抽奖奖品
+    pushToPick (data) {
+        this.pushPickModal = true;
+        this.pushPrise = data;
+    },
+    pushPick() {
+        this.pushPrise.pickTime = this.sj;
+        let adminInfo=JSON.parse(JSON.stringify(this.pushPrise));
+        this.$http.post('/api/add/prize', adminInfo,)
                      .then(function (response) {
                      console.log(response);
                    })
                      .catch(function (error) {
                       console.log(error);
                    });
-                   this.findPrizes();
-                }
-          });
-          this.$refs.modal.close();
+                    this.$Message.success('设置成功!');
     }
 
     },

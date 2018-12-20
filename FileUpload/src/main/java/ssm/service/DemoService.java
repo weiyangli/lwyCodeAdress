@@ -188,11 +188,11 @@ public class DemoService implements DemoServiceInt {
         // 获取文件名
         String originalFilename = avatar.getOriginalFilename();
         // 拼接目标文件名
-        targetPath = targetPath + originalFilename;
+        targetPath = targetPath + "/" + originalFilename;
         // 创建新的文件
         File file = new File(targetPath);
         FileUtils.copyInputStreamToFile(avatar.getInputStream(), file);
-        return targetPath;
+        return originalFilename;
     }
 
     /**
@@ -230,5 +230,4 @@ public class DemoService implements DemoServiceInt {
         }
         return userPrizeNum;
     }
-
 }

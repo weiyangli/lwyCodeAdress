@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class Test {
 
     /*
@@ -35,6 +37,6 @@ public class Test {
             // 执行一次加一
             System.out.println("我是当前循环的值--》" + k);
         }
-
     }
+
 }

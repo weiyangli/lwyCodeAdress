@@ -8,7 +8,8 @@ import lombok.experimental.Accessors;
 public enum ResultConstant {
     SYSTEM_ERROR(500,"系统错误"),
     USER_PICKNUM_EXTRACTED(1000,"已抽取过号码!"),
-    SUCCESS(200,"请求成功");
+    SUCCESS(200,"请求成功"),
+    IMPORT_ERROR(1001,"excel 导入失败");
 
 
     /*属性*/

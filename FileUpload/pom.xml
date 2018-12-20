@@ -241,7 +241,7 @@
         <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-elasticsearch</artifactId>
-            <version>3.0.9.RELEASE</version>
+            <version>3.1.2.RELEASE</version>
         </dependency>
         <!-- velocity -->
         <dependency>
@@ -260,17 +260,21 @@
             <artifactId>htmlunit</artifactId>
             <version>2.15</version>
         </dependency>
-        <!--<dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit-core-js</artifactId>
-            <version>2.9</version>
-            <scope>compile</scope>
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-kafka</artifactId>
+            <version>1.3.0.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
-            <artifactId>htmlunit</artifactId>
-            <version>2.9</version>
-            <scope>compile</scope>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>0.10.1.0</version>
+        </dependency>
+       <!-- <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>1.0.0.RC1</version>
         </dependency>-->
         <!-- activedMq -->
         <dependency>
@@ -294,11 +298,11 @@
             <version>5.1.1.RELEASE</version>
         </dependency>
         <!-- excel -->
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.17</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.poi</groupId>-->
+            <!--<artifactId>poi</artifactId>-->
+            <!--<version>3.17</version>-->
+        <!--</dependency>-->
 
         <!-- spring-security -->
         <dependency>
@@ -317,6 +321,18 @@
             <groupId>org.glassfish.main.javaee-api</groupId>
             <artifactId>javax.jws</artifactId>
             <version>3.1.2.2</version>
+        </dependency>
+        <!-- 邮件发送接口 -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
+        </dependency>
+        <!-- poi 解析excel -->
+        <dependency>
+            <groupId>cn.afterturn</groupId>
+            <artifactId>easypoi-base</artifactId>
+            <version>3.0.3</version>
         </dependency>
     </dependencies>
 

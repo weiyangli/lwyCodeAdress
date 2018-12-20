@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--namespace 非常重要：必须是 Mapper 类的全路径-->
+<mapper namespace="ssm.mapper.ExamImportMapper">
+    <!-- 插入和更新试卷 -->
+    <insert id="insertPaper">
+        INSERT INTO exam_paper(id, user_id, title, type, total_score, paper_url, answer_url, details_url, paper_filename,
+            answer_filename, details_filename, is_subjective, created_time)
+        VALUES (#{id}, #{userId}, #{title}, #{type}, #{totalScore}, #{paperUrl}, #{answerUrl}, #{detailsUrl},
+            #{paperFilename}, #{answerFilename}, #{detailsFilename}, #{subjective}, now())
+
+        ON DUPLICATE KEY
+        UPDATE title = #{title}, type = #{type}, total_score=#{totalScore}, paper_url = #{paperUrl}, answer_url = #{answerUrl},
+            details_url = #{detailsUrl}, paper_filename = #{paperFilename}, answer_filename = #{answerFilename},
+            details_filename = #{detailsFilename}, is_subjective = #{subjective}
+    </insert>
+
+    <!--创建或更新考试-->
+    <insert id="insertExam">
+        INSERT INTO exam (id, user_id, paper_id, clazz_id, title, start_time, end_time, duration, times,
+            is_question_shuffled, is_question_option_shuffled, corrected_count, handed_count, student_count, subject,
+            published, finished_correction, highest_score, lowest_score, avg_score, pass_rate, created_time, updated_time)
+        VALUES (#{id}, #{userId}, #{paperId}, #{clazzId}, #{title}, #{startTime}, #{endTime}, #{duration},
+            #{times}, #{questionShuffled}, #{questionOptionShuffled}, #{correctedCount}, #{handedCount},
+            #{studentCount}, #{subject}, #{published}, #{finishedCorrection}, #{highestScore}, #{lowestScore}, #{avgScore}, #{passRate}, now(), now())
+        ON DUPLICATE KEY
+
+        UPDATE title = #{title}, start_time = #{startTime}, end_time = #{endTime}, duration = #{duration},
+            corrected_count = #{correctedCount}, handed_count = #{handedCount}, student_count = #{studentCount},
+            answer_published = #{answerPublished}, published = #{published}, finished_correction = #{finishedCorrection}, highest_score = #{highestScore},
+            lowest_score = #{lowestScore}, avg_score = #{avgScore}, pass_rate = #{passRate}, subject = #{subject},
+            reliability=#{reliability}, validity = #{validity}, difficulty = #{difficulty}, discrimination=#{discrimination}
+    </insert>
+
+    <!--创建或更新考试记录-->
+    <insert id="insertExamRecord" parameterType="ExamRecord">
+        INSERT INTO exam_record (id, user_id, clazz_id, exam_id, paper_id, status, score, subject_score, object_score,
+        username, rank, nickname, created_time, updated_time)
+        VALUES
+
+        <foreach collection="list" item="record" separator=",">
+            (#{record.id}, #{record.userId}, #{record.clazzId}, #{record.examId}, #{record.paperId}, #{record.status},
+            #{record.score}, #{record.subjectScore}, #{record.objectScore}, #{record.username}, #{record.rank}, #{record.nickname}, now(), now())
+        </foreach>
+        ON DUPLICATE KEY UPDATE rank = VALUES(rank)
+    </insert>
+
+    <!-- 插入或者更新已经存在的试卷的题目: paper_id, question_id 作为唯一索引 -->
+    <insert id="insertExamQuestions"  parameterType="ExamQuestion">
+        INSERT INTO exam_paper_question (paper_id, question_id, parent_question_id, position, score, total_score, group_sn, sn_label, created_time)
+        VALUES
+        <foreach collection="list" item="question" separator=",">
+            (#{question.paperId}, #{question.questionId}, #{question.parentId}, #{question.position}, #{question.score},
+            #{question.totalScore}, #{question.groupSn}, #{question.snLabel}, now())
+        </foreach>
+    </insert>
+
+    <!--创建或更新问题的批改结果-->
+    <insert id="insertQuestionResult" parameterType="QuestionResult">
+        INSERT INTO exam_question_result (id, user_id, exam_id, record_id, paper_id, question_id, STATUS, score, created_time, updated_time)
+        VALUES
+        <foreach collection="list" item="question" separator=",">
+            (#{question.id}, #{question.userId}, #{question.examId}, #{question.recordId}, #{question.paperId},
+            #{question.questionId}, #{question.status}, #{question.score},now(),now())
+        </foreach>
+    </insert>
+
+    <!-- 查询班级学生 -->
+    <select id="findClazzStudents" resultType="ClazzStudent">
+          select clazz_id as clazzId,student_id as id,student_username as username from clazz_student where
+          school_id = 215372671796379648 and clazz_code = 'lz_2017_01'
+    </select>
+</mapper>

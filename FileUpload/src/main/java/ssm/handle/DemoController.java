@@ -4,9 +4,16 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Skin;
 import ssm.bean.Student;
@@ -14,10 +21,14 @@ import ssm.bean.UserPrizeNum;
 import ssm.bean.Zero;
 import ssm.mq.MessageProducer;
 import ssm.service.DemoService;
+import ssm.service.RedisService;
+import ssm.util.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Controller
 public class DemoController {
@@ -28,6 +39,14 @@ public class DemoController {
 
     @Autowired
     private MessageProducer messageProducer;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Value("${tempDirectory}")
+    private String tempUploadDirectory; // 上传文件的临时文件夹
+
+    private ExecutorService service;
 
     @GetMapping("/")
     public String index() {
@@ -43,7 +62,7 @@ public class DemoController {
     @ResponseBody
     public List<Zero> toHelloPage(@PathVariable(required = false) long Id) {
         logger.info("待操作数据Id为" + Id);
-        // List<Student> students = demoService.toHelloPage();
+        // List<ClazzStudent> students = demoService.toHelloPage();
         List<Zero> zeros = demoService.findZero();
         // 抽奖
         for (Zero zero : zeros) {
@@ -104,8 +123,10 @@ public class DemoController {
     * */
     @RequestMapping(value = Urls.UPLOAD_FILE, method = RequestMethod.POST)
     @ResponseBody
-    public String uploadFile(@RequestParam MultipartFile file) throws  Exception{
-        String resultPath = demoService.dealFile(file,"C:/Users/47477/Desktop/img/");
+    public String uploadFile(@RequestParam MultipartFile file, HttpServletRequest request) throws  Exception{
+        String path = request.getRealPath("/page/img/").replace("target\\FileUpload","src/main/webapp/webpage");
+        logger.info("上传到---》" + path);
+        String resultPath = demoService.dealFile(file,path);
         return resultPath;
     }
 
@@ -119,4 +140,29 @@ public class DemoController {
         UserPrizeNum userPrizeNum =  demoService.getPickPrizeNum(openId,prizeId);
         return userPrizeNum;
     }
+
+    /*
+     * 图片预览
+     * */
+    @RequestMapping(value = Urls.IMAGE_PREVIEW, method = RequestMethod.GET)
+    public String getPickPrizeNum(@RequestParam String fileUrl) {
+        logger.info("预览的图片为--》"+Utils.encodeStr(fileUrl));
+        return "/page/img/"+Utils.encodeStr(fileUrl);
+    }
+
+    @GetMapping("/api/redis/lock")
+    public void testRedisDistributionLock1(){
+
+        service = Executors.newFixedThreadPool(20);
+
+        for (int i=0;i<10;i++){
+            service.execute(new Runnable() {
+                @Override
+                public void run() {
+                    redisService.task(Thread.currentThread().getName());
+                }
+            });
+        }
+    }
+
 }

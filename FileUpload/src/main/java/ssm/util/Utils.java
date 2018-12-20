@@ -14,9 +14,11 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellReference;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -36,6 +38,9 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,6 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -566,6 +572,90 @@ public final class Utils {
                 e.printStackTrace();
             }
         }
+    }
+        public static String encodeStr(String str) {
+            try {
+                return new String(str.getBytes("ISO-8859-1"), "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+    /**
+     * 创建一封只包含文本的简单邮件
+     *
+     * @param session     和服务器交互的会话
+     * @param sendMail    发件人邮箱
+     * @param receiveMail 收件人邮箱
+     * @return
+     * @throws Exception
+     */
+    public static MimeMessage createMimeMessage(Session session, String sendMail, String receiveMail,String context) throws Exception {
+        // 1. 创建一封邮件
+        MimeMessage message = new MimeMessage(session);
+
+        // 2. From: 发件人
+        message.setFrom(new InternetAddress(sendMail, "我的小秘书", "UTF-8"));
+
+        // 3. To: 收件人（可以增加多个收件人、抄送、密送）
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "sb", "UTF-8"));
+
+        // 4. Subject: 邮件主题
+        message.setSubject("主题", "UTF-8");
+
+        // 5. Content: 邮件正文（可以使用html标签）
+        message.setContent(context, "text/html;charset=UTF-8");
+        // 6. 设置发件时间
+        message.setSentDate(new Date());
+
+        // 7. 保存设置
+        message.saveChanges();
+
+        return message;
+    }
+
+    /*
+    * 计算excel有效行数
+    * */
+    public static int getCellsCount() {
+        Workbook wb = null;
+        try {
+            wb = new HSSFWorkbook(new FileInputStream("C:\\Users\\47477\\Desktop\\线下成绩导入模版.xlsx"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //获取第一个画布
+        Sheet sheet = wb.getSheetAt(0);
+        CellReference cellReference = new CellReference("A");
+        boolean flag = false;
+        for (int i = cellReference.getRow(); i <= sheet.getLastRowNum();) {
+            Row r = sheet.getRow(i);
+            if(r == null){
+                //如果是空行（即没有任何数据、格式），直接把它以下的数据往上移动
+                sheet.shiftRows(i+1, sheet.getLastRowNum(),-1);
+                continue;
+            }
+            flag = false;
+            for(Cell c : r){
+                if(c.getCellType() != Cell.CELL_TYPE_BLANK){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
+                i++;
+                continue;
+            }else{//如果是空白行（即可能没有数据，但是有一定格式）
+                if(i == sheet.getLastRowNum()){
+                    //如果到了最后一行，直接将那一行remove掉
+                    sheet.removeRow(r);
+                }else{
+                    //如果还没到最后一行，则数据往上移一行
+                    sheet.shiftRows(i+1, sheet.getLastRowNum(),-1);
+                }
+            }
+        }
+        return sheet.getLastRowNum()+1;
     }
 }
 

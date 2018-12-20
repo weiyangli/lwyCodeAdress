@@ -8,6 +8,7 @@
 	<bean id="zeroTask" class="ssm.task.DemoSpringTask"></bean>
 
 	<task:scheduled-tasks>
-		<task:scheduled ref="zeroTask" method="testDemo" cron="0 0/1 * * * ?" />
+		<task:scheduled ref="zeroTask" method="testDemo" cron="0 45 17 * * ?" />
+		<task:scheduled ref="zeroTask" method="startPickPrize" cron="0 0/1 * * * ?" />
 	</task:scheduled-tasks>
 </beans>

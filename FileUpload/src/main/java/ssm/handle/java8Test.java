@@ -1,6 +1,9 @@
 package ssm.handle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class java8Test {
@@ -15,6 +18,10 @@ public class java8Test {
         //求集合元素只和
         Integer result = stream.reduce(8, Integer::sum);
         System.out.println(result);
-
+        List<String> list = new ArrayList<>();
+        list.stream().filter( p ->
+            p.equals("a")
+        ).collect(Collectors.toList());
+        List<String> collect = list.stream().map(String::toUpperCase).collect(Collectors.toList());
     }
 }
