@@ -133,8 +133,8 @@ public class DemoService implements DemoServiceInt {
      * 用于测试配置spring aop
      * */
     @Override
-    public void insertValue() {
-        System.out.println("我注入了 aop");
+    public void insertValue(String elType) {
+        System.out.println(elType+"操作了日志");
     }
 
     /*
@@ -160,7 +160,6 @@ public class DemoService implements DemoServiceInt {
 
     /*
      * 查询英雄皮肤列表(放到redis)
-     *
      * */
     public void findZeroSkins() {
         // 查询皮肤数据

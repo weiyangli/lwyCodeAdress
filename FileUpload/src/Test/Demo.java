@@ -47,7 +47,7 @@ public class Demo {
     * */
     @Test
     public void testAop() {
-        demoService.insertValue();
+        demoService.insertValue("张三");
     }
 
     /*

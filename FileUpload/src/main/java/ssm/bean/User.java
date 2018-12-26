@@ -8,7 +8,9 @@ import org.springframework.security.core.authority.AuthorityUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 /**
  * 用户类型，根据 userdetails.User 的设计，roles, authorities, enabled, expired 等状态不能修改，

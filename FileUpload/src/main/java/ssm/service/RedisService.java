@@ -24,7 +24,7 @@ public class RedisService {
     @Autowired
     private StringRedisTemplate redisTemplate;
 
-    private static final long LOCK_TIMEOUT = 5*1000;
+    private static final long LOCK_TIMEOUT = 5 * 1000;
 
     private static final String LOCK_SUCCESS = "OK";
     private static final String SET_IF_NOT_EXIST = "NX";
@@ -46,13 +46,14 @@ public class RedisService {
         return school;
     }
 
-    public void insert (Object object, Long id) {
+    public void insert(Object object, Long id) {
         log.info("进入操作redis");
-        redisTemplate.opsForValue().set("zero:"+id,JSON.toJSONString(object));
+        redisTemplate.opsForValue().set("zero:" + id, JSON.toJSONString(object));
     }
-    public void insertSkin (Object object, Long id) {
+
+    public void insertSkin(Object object, Long id) {
         log.info("进入操作redis 存储英雄皮肤");
-        redisTemplate.opsForValue().set("zeroSkin:"+id,JSON.toJSONString(object));
+        redisTemplate.opsForValue().set("zeroSkin:" + id, JSON.toJSONString(object));
     }
 
     public String getJsonObject(String key) {
@@ -66,21 +67,22 @@ public class RedisService {
         return json;
     }
 
-    public void insert (Object object, String key) {
+    public void insert(Object object, String key) {
         log.info("进入操作redis");
-        redisTemplate.opsForValue().set(key,JSON.toJSONString(object));
+        redisTemplate.opsForValue().set(key, JSON.toJSONString(object));
     }
+
     /*
-    * redis加锁(有问题)
-    * */
-    public synchronized boolean lock(String lockKey){
+     * redis加锁(有问题)
+     * */
+    public synchronized boolean lock(String lockKey) {
         boolean locked = false;
         /*该方法会在没有key时，设置key;存在key时返回false；因此可以通过该方法及设置key的有效期，判断是否有其它线程持有锁*/
-        Boolean success = redisTemplate.opsForValue().setIfAbsent(lockKey,"lockvalue");
-        if(success != null && success){
-            redisTemplate.expire(lockKey,3,TimeUnit.SECONDS);
+        Boolean success = redisTemplate.opsForValue().setIfAbsent(lockKey, "lockvalue");
+        if (success != null && success) {
+            redisTemplate.expire(lockKey, 3, TimeUnit.SECONDS);
             locked = true;
-        }else{
+        } else {
             locked = false;
         }
         return locked;
@@ -95,18 +97,20 @@ public class RedisService {
         return false;
 
     }
+
     /**
      * 加锁
      * 取到锁加锁，取不到锁一直等待知道获得锁
+     *
      * @param lockKey
      * @param threadName
      * @return
      */
     public synchronized long lock(String lockKey, String threadName) {
-        log.info(threadName+"开始执行加锁");
-        while (true){ //循环获取锁
+        log.info(threadName + "开始执行加锁");
+        while (true) { //循环获取锁
             //锁时间
-            Long lock_timeout = currtTimeForRedis()+ LOCK_TIMEOUT +1;
+            Long lock_timeout = currtTimeForRedis() + LOCK_TIMEOUT + 1;
             if (redisTemplate.execute(new RedisCallback<Boolean>() {
                 @Override
                 public Boolean doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -116,22 +120,22 @@ public class RedisService {
                     boolean flag = redisConnection.setNX(lockKey.getBytes(), value);
                     return flag;
                 }
-            })){
+            })) {
                 //如果加锁成功
-                log.info(threadName +"加锁成功 ++++ 111111");
+                log.info(threadName + "加锁成功 ++++ 111111");
                 //设置超时时间，释放内存
                 redisTemplate.expire(lockKey, LOCK_TIMEOUT, TimeUnit.MILLISECONDS);
                 return lock_timeout;
-            }else {
+            } else {
                 //获取redis里面的时间
                 String result = redisTemplate.opsForValue().get(lockKey);
-                Long currt_lock_timeout_str = result==null?null:Long.parseLong(result);
+                Long currt_lock_timeout_str = result == null ? null : Long.parseLong(result);
                 //锁已经失效
-                if (currt_lock_timeout_str != null && currt_lock_timeout_str < System.currentTimeMillis()){
+                if (currt_lock_timeout_str != null && currt_lock_timeout_str < System.currentTimeMillis()) {
                     //判断是否为空，不为空时，说明已经失效，如果被其他线程设置了值，则第二个条件判断无法执行
                     //获取上一个锁到期时间，并设置现在的锁到期时间
                     Long old_lock_timeout_Str = Long.valueOf(redisTemplate.opsForValue().getAndSet(lockKey, lock_timeout.toString()));
-                    if (old_lock_timeout_Str != null && old_lock_timeout_Str.equals(currt_lock_timeout_str)){
+                    if (old_lock_timeout_Str != null && old_lock_timeout_Str.equals(currt_lock_timeout_str)) {
                         //多线程运行时，多个线程签好都到了这里，但只有一个线程的设置值和当前值相同，它才有权利获取锁
                         log.info(threadName + "加锁成功 ++++ 22222");
                         //设置超时间，释放内存
@@ -144,7 +148,7 @@ public class RedisService {
             }
 
             try {
-                log.info(threadName +"等待加锁， 睡眠100毫秒");
+                log.info(threadName + "等待加锁， 睡眠100毫秒");
 //        TimeUnit.MILLISECONDS.sleep(100);
                 TimeUnit.MILLISECONDS.sleep(200);
             } catch (InterruptedException e) {
@@ -155,6 +159,7 @@ public class RedisService {
 
     /**
      * 解锁
+     *
      * @param lockKey
      * @param lockValue
      * @param threadName
@@ -163,10 +168,10 @@ public class RedisService {
         log.info(threadName + "执行解锁==========");//正常直接删除 如果异常关闭判断加锁会判断过期时间
         //获取redis中设置的时间
         String result = redisTemplate.opsForValue().get(lockKey);
-        Long currt_lock_timeout_str = result ==null?null:Long.valueOf(result);
+        Long currt_lock_timeout_str = result == null ? null : Long.valueOf(result);
 
         //如果是加锁者，则删除锁， 如果不是，则等待自动过期，重新竞争加锁
-        if (currt_lock_timeout_str !=null && currt_lock_timeout_str == lockValue){
+        if (currt_lock_timeout_str != null && currt_lock_timeout_str == lockValue) {
             redisTemplate.delete(lockKey);
             log.info(threadName + "解锁成功------------------");
         }
@@ -174,9 +179,10 @@ public class RedisService {
 
     /**
      * 多服务器集群，使用下面的方法，代替System.currentTimeMillis()，获取redis时间，避免多服务的时间不一致问题！！！
+     *
      * @return
      */
-    public long currtTimeForRedis(){
+    public long currtTimeForRedis() {
         return redisTemplate.execute(new RedisCallback<Long>() {
             @Override
             public Long doInRedis(RedisConnection redisConnection) throws DataAccessException {
@@ -184,16 +190,17 @@ public class RedisService {
             }
         });
     }
+
     public void task(String name) {
         //    System.out.println(name + "任务执行中"+(i++));
 
         //加锁时间
         Long lockTime;
-        if ((lockTime = lock((LOCK_NO+1)+"", name))!=null){
+        if ((lockTime = lock((LOCK_NO + 1) + "", name)) != null) {
             //开始执行任务
-            System.out.println(name + "任务执行中"+(i++));
+            System.out.println(name + "任务执行中" + (i++));
             //任务执行完毕 关闭锁
-            unlock((LOCK_NO+1)+"", lockTime, name);
+            unlock((LOCK_NO + 1) + "", lockTime, name);
         }
 
     }

@@ -164,6 +164,13 @@ public class ExamImportService {
     /*
      * 获取考试的基本数据
      * */
+    /*
+    * @RestController 和 @Controller 的区别:
+    * @RestController 注解相当于@ResponseBody ＋ @Controller 使用该注解整个类都不可以
+    * 返回jsp/html 返回的数据都被当成了一个json串。
+    * @Controller return 是会自动将返回的参数当成一个页面解析跳转，想要返回json串可以在
+    * 方法体上添加 @ResponseBody 注解 ，使用@Contrller 相比 @RestController 比较灵活
+    * */
     public static List<ExamExcel> getBaseData(InputStream inputStream) throws Exception {
         byte[] buffer = IOUtils.toByteArray(inputStream); // 输入流的缓存
         ImportParams examRecordParams = new ImportParams();
