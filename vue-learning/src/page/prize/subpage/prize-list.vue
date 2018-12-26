@@ -61,11 +61,8 @@ export default {
             },
             rules: {
                 prizeName : [{required: true, message: '请输入奖品名称', trigger: 'blur'}],
-                prizePrice : [{required: true, type:'number', message: '请输入价格,必需大于0', trigger: 'change',transform(value) {
-                    let a = value > 0 ? true : false
-                return 0;
-    }}],
-                prizeImg : [{required: true, message: '请请上传图片', trigger: 'blur'}],
+                prizePrice : [{required: true, min:1, type:'number', message: '请输入价格,必需大于0', trigger: 'blur'}],
+                prizeImg : [{required: true, message: '请上传图片', trigger: 'blur'}],
             },
             addPrizeModal:false,
             columns: [
@@ -157,6 +154,12 @@ export default {
     },
 
     created() {
+        alert(this.myUtils.getStr("dsgfg"))
+        alert(getStr("dsgfg"))
+        this.findPrizes()
+    },
+    activated() {
+        alert(1)
         this.findPrizes()
     },
     methods: {
@@ -209,17 +212,19 @@ export default {
                 if (valid) {
                     this.$http.post('/api/add/prize', adminInfo,)
                      .then(function (response) {
+                        if(response.data.code === 200) {
+                            this.findPrizes();
+                        }
                    })
                      .catch(function (error) {
                       console.log(error);
                    });
-                   this.prizeForm.createTime = new date();
-                   this.prizes.push(this.prizeForm);
-                   this.cancel();
                 } else {
-                    this.$Message.warning('请完整奖品信息');
+                    this.$Message.warning('参数填写不完整');
                 }
           });
+          
+          this.cancel();
     },
     // 设置奖品为抽奖奖品
     pushToPick (data) {

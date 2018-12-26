@@ -30,10 +30,8 @@ export default {
       pick() {
         if(isNaN(this.pickCount)){
           this.$Message.warning('只能填写数字');
-          return;
         } else if (this.pickCount > 500){
           this.$Message.warning('每次抽奖次数不超过500次');
-          return;
         }
         // 输入数据校验通过，开始抽取皮肤
         this.pickModal = true;
