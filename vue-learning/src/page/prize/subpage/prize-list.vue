@@ -24,7 +24,7 @@
                 </FormItem>
                 <FormItem prop="prizePrice" required>
                     <InputNumber
-                       v-model="prizeForm.prizePrice"
+                        v-model="prizeForm.prizePrice"
                        :formatter="value => `￥ ${value}`.replace(/B(?=(d{3})+(?!d))/g, ',')"
                        :parser="value => value.replace(/$s?|(,*)/g, '')"/>
                 </FormItem>
@@ -154,12 +154,9 @@ export default {
     },
 
     created() {
-        alert(this.myUtils.getStr("dsgfg"))
-        alert(getStr("dsgfg"))
         this.findPrizes()
     },
     activated() {
-        alert(1)
         this.findPrizes()
     },
     methods: {
@@ -167,7 +164,6 @@ export default {
         onSuccess(result, fileList) {
             if (result) {
                 this.prizeForm.prizeImg = result;
-                alert(result);
             }
         },
         // 查询英雄列表
@@ -221,10 +217,10 @@ export default {
                    });
                 } else {
                     this.$Message.warning('参数填写不完整');
-                }
-          });
+            }
+        });
           
-          this.cancel();
+        this.cancel();
     },
     // 设置奖品为抽奖奖品
     pushToPick (data) {
@@ -241,7 +237,7 @@ export default {
                      .catch(function (error) {
                       console.log(error);
                    });
-                    this.$Message.success('设置成功!');
+                   this.$Message.success('设置成功!');
     }
 
     },
@@ -250,7 +246,7 @@ export default {
 </script>
 <style lang="scss">
   .prizes-list {
-      padding: 16px;
+       padding: 16px;
 
       .pick-button {
         margin-bottom: 10px;

@@ -1,0 +1,2 @@
+webpackJsonp([8],{"f/SY":function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var u=t("IvJb"),a=t("zO6J");u.default.use(a.a),n.default=new a.a({routes:[{path:"/",name:"prize-list",component:function(){return t.e(1).then(t.bind(null,"DZ2g"))}}]})}},["f/SY"]);
+//# sourceMappingURL=router.0244f88e3d2f9d1e276c.js.map

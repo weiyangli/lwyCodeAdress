@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import 'iview/dist/styles/iview.css'
 
-import Utils  from '@/../static/lib/utils';
 import myUtils  from '@/../static/lib/myUtils';
 
 import Vue from 'vue'
@@ -15,7 +14,6 @@ Vue.config.productionTip = false
 Vue.use(iView)
 
 Vue.prototype.$http=axios
-Vue.prototype.$Utils = Utils;
 Vue.prototype.myUtils = myUtils;
 
 router.beforeEach((to, from, next) => {

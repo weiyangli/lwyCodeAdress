@@ -1,0 +1,2 @@
+webpackJsonp([6],{DS5v:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var u=t("IvJb"),i=t("zO6J");u.default.use(i.a),n.default=new i.a({routes:[{path:"/",name:"zero",component:function(){return t.e(0).then(t.bind(null,"8iHt"))}},{path:"/pick-skin",name:"pick-skin",component:function(){return t.e(2).then(t.bind(null,"ADNC"))}}]})}},["DS5v"]);
+//# sourceMappingURL=router.37f4ca122553567d2782.js.map

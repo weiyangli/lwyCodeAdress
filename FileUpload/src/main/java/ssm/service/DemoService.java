@@ -2,14 +2,21 @@ package ssm.service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Hero;
@@ -26,11 +33,14 @@ import ssm.service.serviceInterface.DemoServiceInt;
 import ssm.util.Utils;
 
 import java.io.File;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class DemoService implements DemoServiceInt {
@@ -50,6 +60,12 @@ public class DemoService implements DemoServiceInt {
 
     @Autowired
     private IdWorker idWorker;
+    @Value("${fastdfsServer}")
+    private String fastdfsServer;
+    @Value("${fastdfsServerFile}")
+    private String fastdfsServerFile;
+
+    private static final long yourMaxRequestSize = 10000000;
 
     public List<Student> toHelloPage() {
         School school = redisService.playJedis();
@@ -191,6 +207,14 @@ public class DemoService implements DemoServiceInt {
         // 创建新的文件
         File file = new File(targetPath);
         FileUtils.copyInputStreamToFile(avatar.getInputStream(), file);
+        // 将文件备份到 linux 服务器
+        try{
+            logger.info(fastdfsServer+fastdfsServerFile+"/" + originalFilename);
+            FileUtils.copyInputStreamToFile(avatar.getInputStream(), new File(fastdfsServer+"/" + originalFilename));
+        }catch (Exception e) {
+            logger.error(JSON.toJSONString(e));
+            logger.error("备份文件失败啦!");
+        }
         return originalFilename;
     }
 
@@ -228,5 +252,28 @@ public class DemoService implements DemoServiceInt {
             userPrizeNum.initMe(ResultConstant.SUCCESS);
         }
         return userPrizeNum;
+    }
+
+    public void uploadImgToLinux (MultipartFile img) throws Exception{
+        String CHARSET = "utf-8"; // 设置编码
+        int requestTime = 0;
+        int readTimeOut = 10 * 1000; // 读取超时
+        int connectTimeout = 10 * 1000; // 超时时间
+        String BOUNDARY = UUID.randomUUID().toString(); // 边界标识
+        String CONTENT_TYPE = "multipart/form-data"; // 内容类型
+        URL url = new URL(fastdfsServer+fastdfsServerFile+"/");
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setReadTimeout(readTimeOut);
+        conn.setConnectTimeout(connectTimeout);
+        conn.setDoInput(true); // 允许输入流
+        conn.setDoOutput(true); // 允许输出流
+        conn.setUseCaches(false); // 不允许使用缓存
+        conn.setRequestMethod("POST"); // 请求方式
+        conn.setRequestProperty("Charset", CHARSET); // 设置编码
+        conn.setRequestProperty("connection", "keep-alive");
+        conn.setRequestProperty("user-agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)");
+        conn.setRequestProperty("Content-Type", CONTENT_TYPE + ";boundary=" + BOUNDARY);
+
+
     }
 }

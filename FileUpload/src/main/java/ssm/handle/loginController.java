@@ -3,6 +3,8 @@ package ssm.handle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ssm.bean.User;
@@ -38,6 +40,6 @@ public class loginController {
         log.info("用户生成token为----->" + token);
         Cookie cookie = new Cookie("token", token);
         response.addCookie(cookie);
-        return "redirect:/page/zero/index.html";
+        return "redirect:/page/prize/index.html";
     }
 }
