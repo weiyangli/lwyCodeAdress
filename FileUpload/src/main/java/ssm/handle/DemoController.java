@@ -10,11 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import ssm.bean.Chapter;
 import ssm.bean.Skin;
 import ssm.bean.Student;
 import ssm.bean.UserPrizeNum;
@@ -51,6 +53,12 @@ public class DemoController {
     @GetMapping("/")
     public String index() {
         System.out.println("劲来了");
+        return "/page/html/index.html";
+    }
+
+    @GetMapping("/chapter")
+    public String chapter(@RequestBody List<Chapter> chapters) {
+        List<Chapter> chapters2 = chapters;
         return "/page/html/index.html";
     }
 
@@ -155,7 +163,7 @@ public class DemoController {
 
         service = Executors.newFixedThreadPool(20);
 
-        for (int i=0;i<10;i++){
+            for (int i=0;i<10;i++){
             service.execute(new Runnable() {
                 @Override
                 public void run() {

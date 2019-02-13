@@ -207,10 +207,11 @@ public class DemoService implements DemoServiceInt {
         // 创建新的文件
         File file = new File(targetPath);
         FileUtils.copyInputStreamToFile(avatar.getInputStream(), file);
-        // 将文件备份到 linux 服务器
+        // 将文件备份到 FTP
         try{
             logger.info(fastdfsServer+fastdfsServerFile+"/" + originalFilename);
-            FileUtils.copyInputStreamToFile(avatar.getInputStream(), new File(fastdfsServer+"/" + originalFilename));
+            Utils.uploadFileToFTP(avatar);
+           // FileUtils.copyInputStreamToFile(avatar.getInputStream(), new File(fastdfsServer+"/" + originalFilename));
         }catch (Exception e) {
             logger.error(JSON.toJSONString(e));
             logger.error("备份文件失败啦!");

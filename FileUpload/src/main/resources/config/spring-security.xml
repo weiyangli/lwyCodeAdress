@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+        xmlns="http://www.springframework.org/schema/security"
+        xmlns:beans="http://www.springframework.org/schema/beans"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd">
+    <!-- 使用自动装配 -->
+    <context:annotation-config/>
+
+    <!-- 匹配的 URL 不进行身份验证 -->
+    <http security="none" pattern="/page/login"/>
+
+    <!-- 禁止创建 session，使用 token 的方式进行认证 -->
+    <http auto-config="true" create-session="stateless" use-expressions="false">
+        <form-login login-page="/"
+                    login-processing-url="/login"
+                    authentication-success-handler-ref="authenticationSuccessHandler"
+                    authentication-failure-url="/page/login?error"
+                    username-parameter="username"
+                    password-parameter="password"/>
+        <logout logout-url="/logout" logout-success-url="/page/html/index.html"/>
+        <access-denied-handler error-page="/page/deny"/>
+        <!-- 指定自定义过滤器 -->
+        <custom-filter ref="authenticationFilter" before="FORM_LOGIN_FILTER" />
+
+        <csrf disabled="true"/>
+    </http>
+
+    <!-- 自定义过滤器 -->
+    <beans:bean id="authenticationFilter" class="ssm.security.UserLoginFilter">
+        <beans:property name="authenticationManager" ref="authenticationManager" />
+    </beans:bean>
+
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider>
+            <user-service>
+                <!-- 这里创建两个用户，可以通过用户名密码登录 -->
+                <user name="adminSystem" password="123456" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="admin" password="admin" authorities="ROLE_USER" />
+            </user-service>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!-- 第三方登陆 filter 和 Token 登陆验证 filter,登陆成功根据不同角色跳转不同页面 -->
+    <beans:bean id="authenticationSuccessHandler" class="ssm.security.AuthenticationSuccessHandler"/>
+
+</beans:beans>

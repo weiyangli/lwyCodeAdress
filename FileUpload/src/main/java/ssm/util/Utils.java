@@ -13,6 +13,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -31,6 +33,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.DigestUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.multipart.MultipartFile;
 import ssm.bean.Zero;
 import ssm.handle.PaChong;
 
@@ -51,6 +54,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.net.SocketException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -657,6 +661,49 @@ public final class Utils {
             }
         }
         return sheet.getLastRowNum()+1;
+    }
+    /*
+    * 文件上传到FTP
+    * */
+    public static void uploadFileToFTP(MultipartFile file) throws Exception{
+        //创建客户端对象
+        FTPClient ftp = new FTPClient();
+        InputStream local=file.getInputStream();
+        try {
+            //连接ftp服务器
+            ftp.connect("121.42.123.186", 21);
+            //登录
+            boolean result = ftp.login("qxu169440489 ", "Lwy5201314");
+            //设置上传路径4
+            String path="/backup2";
+            //检查上传路径是否存在 如果不存在返回false
+            boolean flag = ftp.changeWorkingDirectory(path);
+            if(!flag){
+                //创建上传的路径  该方法只能创建一级目录，在这里如果/home/ftpuser存在则可创建image
+                ftp.makeDirectory(path);
+            }
+            //指定上传路径
+            ftp.changeWorkingDirectory(path);
+            //指定上传文件的类型  二进制文件
+            ftp.setFileType(FTP.BINARY_FILE_TYPE);
+            //第一个参数是文件名
+            ftp.storeFile(file.getOriginalFilename(), local);
+        } catch (SocketException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                //关闭文件流
+                local.close();
+                //退出
+                ftp.logout();
+                //断开连接
+                ftp.disconnect();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 
