@@ -19,30 +19,36 @@
 
     <!-- 禁止创建 session，使用 token 的方式进行认证 -->
     <http auto-config="true" create-session="stateless" use-expressions="false">
-        <form-login login-page="/"
+        <intercept-url pattern="/**" access="ROLE_USER" />
+        <form-login login-page="/page/login"
                     login-processing-url="/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"
                     authentication-failure-url="/page/login?error"
                     username-parameter="username"
                     password-parameter="password"/>
-        <logout logout-url="/logout" logout-success-url="/page/html/index.html"/>
+        <!-- 注销 -->
+        <logout logout-url="/logout" logout-success-url="/page/login?logout"/>
         <access-denied-handler error-page="/page/deny"/>
-        <!-- 指定自定义过滤器 -->
-        <custom-filter ref="authenticationFilter" before="FORM_LOGIN_FILTER" />
 
         <csrf disabled="true"/>
+
+        <remember-me key="uniqueAndSecret" token-validity-seconds="2592000"/>
     </http>
 
-    <!-- 自定义过滤器 -->
-    <beans:bean id="authenticationFilter" class="ssm.security.UserLoginFilter">
-        <beans:property name="authenticationManager" ref="authenticationManager" />
-    </beans:bean>
+    <!-- 密码默认不加密 -->
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"></beans:bean>
+
+    <!-- 通过方法校验用户 -->
+   <!-- <authentication-manager id="authenticationManager2">
+        <authentication-provider user-service-ref='userDetailsService' />
+    </authentication-manager>
+    <beans:bean id="userDetailsService" class="ssm.security.UserDetailsService" />-->
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider>
             <user-service>
                 <!-- 这里创建两个用户，可以通过用户名密码登录 -->
-                <user name="adminSystem" password="123456" authorities="ROLE_USER, ROLE_ADMIN" />
+                <user name="adminSystem" password="123456" authorities="ROLE_USER, ROLE_ADMIN"/>
                 <user name="admin" password="admin" authorities="ROLE_USER" />
             </user-service>
         </authentication-provider>
@@ -51,4 +57,22 @@
     <!-- 第三方登陆 filter 和 Token 登陆验证 filter,登陆成功根据不同角色跳转不同页面 -->
     <beans:bean id="authenticationSuccessHandler" class="ssm.security.AuthenticationSuccessHandler"/>
 
+    <!-- 自己定义 AccessDecisionManager 对应的 bean，实现角色继承 -->
+    <beans:bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+        <beans:constructor-arg>
+            <beans:list>
+                <beans:ref bean="roleVoter"/>
+            </beans:list>
+        </beans:constructor-arg>
+    </beans:bean>
+    <beans:bean id="roleVoter" class="org.springframework.security.access.vote.RoleHierarchyVoter">
+        <beans:constructor-arg ref="roleHierarchy"/>
+    </beans:bean>
+    <beans:bean id="roleHierarchy" class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+        <beans:property name="hierarchy">
+            <beans:value>
+                ROLE_ADMIN > ROLE_USER
+            </beans:value>
+        </beans:property>
+    </beans:bean>
 </beans:beans>

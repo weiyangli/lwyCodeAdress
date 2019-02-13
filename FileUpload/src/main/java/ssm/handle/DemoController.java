@@ -53,7 +53,7 @@ public class DemoController {
     @GetMapping("/")
     public String index() {
         System.out.println("劲来了");
-        return "/page/html/index.html";
+        return "forward:/page/login";
     }
 
     @GetMapping("/chapter")

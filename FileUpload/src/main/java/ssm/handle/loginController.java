@@ -80,9 +80,9 @@ public class loginController {
                             HttpServletRequest request,
                             ModelMap model) {
         // 判断当前登录的状态
-        String status = "";
+        String status = "1";
         status = (error  != null) ? "账号或密码无效" : status; // 登录错误
         status = (logout != null) ? "" : status; // 注销成功
-        return "";
+        return "/page/html/index.html";
     }
 }
