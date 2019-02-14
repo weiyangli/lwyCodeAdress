@@ -19,7 +19,8 @@
 
     <!-- 禁止创建 session，使用 token 的方式进行认证 -->
     <http auto-config="true" create-session="stateless" use-expressions="false">
-        <intercept-url pattern="/**" access="ROLE_USER" />
+        <!--<intercept-url pattern="/**" access="ROLE_USER" />
+        <intercept-url pattern="/demo/filters" access="ROLE_USER"/>-->
         <form-login login-page="/page/login"
                     login-processing-url="/login"
                     authentication-success-handler-ref="authenticationSuccessHandler"

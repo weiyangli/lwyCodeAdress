@@ -23,13 +23,13 @@ public class AuthenticationSuccessHandler implements org.springframework.securit
         String username = request.getParameter(SecurityConstant.LOGIN_USERNAME);
         String password = request.getParameter(SecurityConstant.LOGIN_PASSWORD);
         // 生成 Spring Security 可使用的用户对象，保存到 SecurityContext 供 Spring Security 使用
-        User user  = new User();
+        /*User user  = new User();
         user.setNickname(username);
         user.setPassword(password);
         user.setRole("ROLE_USER");
         user = User.userForSpringSecurity(user);
         Authentication auth =  new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        SecurityContextHolder.getContext().setAuthentication(auth);*/
         // 通过用户名区分角色跳转不同的页面
         if (username.equals("admin")) {
             // 普通管理员
