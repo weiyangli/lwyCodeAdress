@@ -11,6 +11,8 @@ import ssm.service.ExamImportService;
 import ssm.service.RedisService;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /*
 * 框架测试类
@@ -56,6 +58,28 @@ public class Demo {
     @Test
     public void genExcel() {
         demoService.genPrizesExcel();
+    }
+
+    /**
+     * 缓存穿透测试
+     * https://www.cnblogs.com/zhujiabin/p/5404771.html 綫程池講解
+     */
+    @Test
+    public void testRedis() throws  Exception{
+        ExecutorService executorService= Executors.newFixedThreadPool(20);
+        for (int i=0 ; i< 1000; i++) {
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        redisService.testRedisBoom();
+                    }catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+        }
     }
 
 }

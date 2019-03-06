@@ -1,7 +1,5 @@
 import ssm.util.DateUtil;
-
 import java.util.Date;
-
 
 public class UtilTest {
     public static void main(String[] args) {

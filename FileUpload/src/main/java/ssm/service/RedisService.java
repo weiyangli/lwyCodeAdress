@@ -14,7 +14,10 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import ssm.bean.School;
+import ssm.bean.Skin;
+import ssm.mapper.DemoMapper;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -23,6 +26,9 @@ public class RedisService {
     private static final Logger log = LoggerFactory.getLogger(RedisService.class);
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private DemoMapper demoMapper;
 
     private static final long LOCK_TIMEOUT = 5 * 1000;
 
@@ -203,5 +209,28 @@ public class RedisService {
             unlock((LOCK_NO + 1) + "", lockTime, name);
         }
 
+    }
+
+    /**
+    * 测试缓存穿透问题
+    * */
+    public void testRedisBoom() throws Exception{
+        // String json = redisTemplate.opsForValue().get("mine_lwy");
+        // 缓存为空时查询数据库
+        // if (!StringUtils.isNotBlank(json)) {
+            synchronized(this) {
+                String json = redisTemplate.opsForValue().get("mine_lwy");
+                if (!StringUtils.isNotBlank(json)) {
+                    json= JSON.toJSONString(demoMapper.findZeroSkin());
+                    // 放回缓存(设置缓存10秒后自动过期)
+                    redisTemplate.opsForValue().set("mine_lwy", json, 10, TimeUnit.SECONDS);
+                    System.out.println("数据库中取数据");
+                } else {
+                    System.out.println("从缓存中取数据");
+                }
+            }
+/*        } else {
+            System.out.println("从缓存中取数据");
+        }*/
     }
 }
